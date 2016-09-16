@@ -1,0 +1,14 @@
+{
+  "name": "mydoc-apidoc",
+  "version": "1.0.0",
+  "description": "MyDoc Api Documentation",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Federico Brinkworth",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^0.9.0"
+  }
+}

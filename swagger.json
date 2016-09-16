@@ -1,0 +1,2107 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": null,
+        "title": "mydoc-v0.2.2_RC.discovery",
+        "description": "mydoc API",
+        "license": {
+            "name": "MIT",
+            "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+        }
+    },
+    "host": "gsk-mydoc-uat-bup.appspot.com",
+    "basePath": "/",
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/auth/getuser": {
+            "get": {
+                "description": "Exposes an API endpoint to obtain user data",
+                "tags": [
+                    "auth"
+                ],
+                "operationId": "GetuserAuthGetuser_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocMydocMessagesUserInfo"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/hcp/{id}": {
+            "get": {
+                "description": "Exposes an API endpoint to get hcp by id",
+                "tags": [
+                    "hcp"
+                ],
+                "operationId": "GetHcpById_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "alt",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": "json",
+                        "type": "string",
+                        "description": "Data format for the response. (Acceptable values are: \"json\")"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Selector specifying which fields to include in a partial response."
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
+                    },
+                    {
+                        "name": "oauth_token",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "OAuth 2.0 token for the current user."
+                    },
+                    {
+                        "name": "prettyPrint",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": true,
+                        "type": "boolean",
+                        "description": "Returns response with indentations and line breaks."
+                    },
+                    {
+                        "name": "quotaUser",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
+                    },
+                    {
+                        "name": "userIp",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpResponseMessage"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/hcp.list": {
+            "get": {
+                "description": "Exposes an API endpoint to obtain a list of health care professional Args: None Returns: A list of health care professional",
+                "tags": [
+                    "hcp"
+                ],
+                "operationId": "ListHcpList_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpResponseMessageCollection"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/hcp/new": {
+            "post": {
+                "description": "Exposes an API endpoint to create hcp",
+                "tags": [
+                    "hcp"
+                ],
+                "operationId": "NewHcpNew_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpRequestMessage"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpResponseMessage"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/hcp/update/{hcp_id}": {
+            "put": {
+                "description": "Exposes an API endpoint to update hcp",
+                "tags": [
+                    "hcp"
+                ],
+                "operationId": "UpdateHcpHcpUpdateByHcpId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "alt",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": "json",
+                        "type": "string",
+                        "description": "Data format for the response. (Acceptable values are: \"json\")"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Selector specifying which fields to include in a partial response."
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
+                    },
+                    {
+                        "name": "oauth_token",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "OAuth 2.0 token for the current user."
+                    },
+                    {
+                        "name": "prettyPrint",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": true,
+                        "type": "boolean",
+                        "description": "Returns response with indentations and line breaks."
+                    },
+                    {
+                        "name": "quotaUser",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
+                    },
+                    {
+                        "name": "userIp",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                    },
+                    {
+                        "name": "hcp_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpUpdateRequestMessage"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpResponseMessage"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/newitem/{param_cal_id}": {
+            "post": {
+                "description": "Inserts a new appointment",
+                "tags": [
+                    "item"
+                ],
+                "operationId": "CreateNewitemByParamCalId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "alt",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": "json",
+                        "type": "string",
+                        "description": "Data format for the response. (Acceptable values are: \"json\")"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Selector specifying which fields to include in a partial response."
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
+                    },
+                    {
+                        "name": "oauth_token",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "OAuth 2.0 token for the current user."
+                    },
+                    {
+                        "name": "prettyPrint",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": true,
+                        "type": "boolean",
+                        "description": "Returns response with indentations and line breaks."
+                    },
+                    {
+                        "name": "quotaUser",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
+                    },
+                    {
+                        "name": "userIp",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                    },
+                    {
+                        "name": "param_cal_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocMydocMessagesAppointmentRequestMessage"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocMydocMessagesAppointmentResponseMessage"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/agenda/item/{item_id}": {
+            "put": {
+                "description": "Updates an appointment identified by item id",
+                "tags": [
+                    "item"
+                ],
+                "operationId": "PutAgendaItemByItemId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "alt",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": "json",
+                        "type": "string",
+                        "description": "Data format for the response. (Acceptable values are: \"json\")"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Selector specifying which fields to include in a partial response."
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
+                    },
+                    {
+                        "name": "oauth_token",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "OAuth 2.0 token for the current user."
+                    },
+                    {
+                        "name": "prettyPrint",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": true,
+                        "type": "boolean",
+                        "description": "Returns response with indentations and line breaks."
+                    },
+                    {
+                        "name": "quotaUser",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
+                    },
+                    {
+                        "name": "userIp",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                    },
+                    {
+                        "name": "item_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocMydocMessagesAppointmentRequestMessage"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocMydocMessagesAppointmentResponseMessage"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/patient/{patient_id}/add_hciplan/{hciplan_id}/hciplan_nr/{hciplan_nr}": {
+            "post": {
+                "description": "Adds a HCI Plan to a Patient",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "AddHciplanPatientAddHciplanHciplanNrHciplanNr_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "alt",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": "json",
+                        "type": "string",
+                        "description": "Data format for the response. (Acceptable values are: \"json\")"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Selector specifying which fields to include in a partial response."
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
+                    },
+                    {
+                        "name": "oauth_token",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "OAuth 2.0 token for the current user."
+                    },
+                    {
+                        "name": "prettyPrint",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": true,
+                        "type": "boolean",
+                        "description": "Returns response with indentations and line breaks."
+                    },
+                    {
+                        "name": "quotaUser",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
+                    },
+                    {
+                        "name": "userIp",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                    },
+                    {
+                        "name": "hciplan_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "hciplan_nr",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientHCIPlanRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/patient/{patient_id}/add_hcp_favorite/{hcp_id}": {
+            "post": {
+                "description": "Exposes an API endpoint to add a favorite hcp to a Patient",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "AddHcpFavoritePatientAddHcpFavoriteByPatientIdAndHcpId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "alt",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": "json",
+                        "type": "string",
+                        "description": "Data format for the response. (Acceptable values are: \"json\")"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Selector specifying which fields to include in a partial response."
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
+                    },
+                    {
+                        "name": "oauth_token",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "OAuth 2.0 token for the current user."
+                    },
+                    {
+                        "name": "prettyPrint",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": true,
+                        "type": "boolean",
+                        "description": "Returns response with indentations and line breaks."
+                    },
+                    {
+                        "name": "quotaUser",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
+                    },
+                    {
+                        "name": "userIp",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                    },
+                    {
+                        "name": "hcp_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/patient/{patient_id}": {
+            "get": {
+                "description": "Exposes an API endpoint to obtain by id a Patient",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "GetPatientByPatientId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "alt",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": "json",
+                        "type": "string",
+                        "description": "Data format for the response. (Acceptable values are: \"json\")"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Selector specifying which fields to include in a partial response."
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
+                    },
+                    {
+                        "name": "oauth_token",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "OAuth 2.0 token for the current user."
+                    },
+                    {
+                        "name": "prettyPrint",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": true,
+                        "type": "boolean",
+                        "description": "Returns response with indentations and line breaks."
+                    },
+                    {
+                        "name": "quotaUser",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
+                    },
+                    {
+                        "name": "userIp",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/patient/all": {
+            "get": {
+                "description": "Exposes an API endpoint to obtain a list of Patients",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "GetallPatientAll_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientCollection"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/patient/new": {
+            "post": {
+                "description": "Exposes an API endpoint to add a new Patient",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "InsertPatientNew_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientRequestMessage"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/patient/insert/secondary": {
+            "post": {
+                "description": "Exposes an API endpoint to add a secondary patient to a existing primary patient",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "InsertSecondaryPatientInsertSecondary_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientRequestMessage"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/patient/{patient_primary_id}/link/{patient_secondary_id}": {
+            "post": {
+                "description": "Exposes an API endpoint to link an existing secondary patient to an existing primary patient",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "Create_LinkSecondaryPatientLinkByPatientPrimaryId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "alt",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": "json",
+                        "type": "string",
+                        "description": "Data format for the response. (Acceptable values are: \"json\")"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Selector specifying which fields to include in a partial response."
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
+                    },
+                    {
+                        "name": "oauth_token",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "OAuth 2.0 token for the current user."
+                    },
+                    {
+                        "name": "prettyPrint",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": true,
+                        "type": "boolean",
+                        "description": "Returns response with indentations and line breaks."
+                    },
+                    {
+                        "name": "quotaUser",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
+                    },
+                    {
+                        "name": "userIp",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                    },
+                    {
+                        "name": "patient_primary_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "patient_secondary_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientCollection"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/patient/update/{patient_id}": {
+            "put": {
+                "description": "Exposes an API endpoint to modify a Patient",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "UpdatePatientUpdateByPatientId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "alt",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": "json",
+                        "type": "string",
+                        "description": "Data format for the response. (Acceptable values are: \"json\")"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Selector specifying which fields to include in a partial response."
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
+                    },
+                    {
+                        "name": "oauth_token",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "OAuth 2.0 token for the current user."
+                    },
+                    {
+                        "name": "prettyPrint",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": true,
+                        "type": "boolean",
+                        "description": "Returns response with indentations and line breaks."
+                    },
+                    {
+                        "name": "quotaUser",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
+                    },
+                    {
+                        "name": "userIp",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientRequestMessage"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            },
+            "patch": {
+                "description": "Exposes an API endpoint to modify a Patient . This method supports patch semantics.",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "PatchPatientUpdateByPatientId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "alt",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": "json",
+                        "type": "string",
+                        "description": "Data format for the response. (Acceptable values are: \"json\")"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Selector specifying which fields to include in a partial response."
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
+                    },
+                    {
+                        "name": "oauth_token",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "OAuth 2.0 token for the current user."
+                    },
+                    {
+                        "name": "prettyPrint",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": true,
+                        "type": "boolean",
+                        "description": "Returns response with indentations and line breaks."
+                    },
+                    {
+                        "name": "quotaUser",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
+                    },
+                    {
+                        "name": "userIp",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientRequestMessage"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/patient/{patient_id}/rm_hcp_favorite/{hcp_id}": {
+            "delete": {
+                "description": "Exposes an API endpoint to remove a favorite hcp from a Patient",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "Delete_RmHcpFavoritePatientRmHcpFavoriteByPatientIdAndHcpId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "alt",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": "json",
+                        "type": "string",
+                        "description": "Data format for the response. (Acceptable values are: \"json\")"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Selector specifying which fields to include in a partial response."
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
+                    },
+                    {
+                        "name": "oauth_token",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "OAuth 2.0 token for the current user."
+                    },
+                    {
+                        "name": "prettyPrint",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": true,
+                        "type": "boolean",
+                        "description": "Returns response with indentations and line breaks."
+                    },
+                    {
+                        "name": "quotaUser",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
+                    },
+                    {
+                        "name": "userIp",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                    },
+                    {
+                        "name": "hcp_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/patient/{patient_id}/update_hciplan/{hciplan_id}/hciplan_nr/{hciplan_nr}": {
+            "put": {
+                "description": "Update a HCI Plan of a Patient",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "UpdateHciplanPatientUpdateHciplanHciplanNrHciplanNr_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "alt",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": "json",
+                        "type": "string",
+                        "description": "Data format for the response. (Acceptable values are: \"json\")"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Selector specifying which fields to include in a partial response."
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
+                    },
+                    {
+                        "name": "oauth_token",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "OAuth 2.0 token for the current user."
+                    },
+                    {
+                        "name": "prettyPrint",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": true,
+                        "type": "boolean",
+                        "description": "Returns response with indentations and line breaks."
+                    },
+                    {
+                        "name": "quotaUser",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
+                    },
+                    {
+                        "name": "userIp",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                    },
+                    {
+                        "name": "hciplan_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "hciplan_nr",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientHCIPlanRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/agenda/{cal_id}/{date}": {
+            "get": {
+                "description": "Returns a calendar's workday for this date",
+                "tags": [
+                    "workday"
+                ],
+                "operationId": "GetAgendaByCalIdAndDate_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "alt",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": "json",
+                        "type": "string",
+                        "description": "Data format for the response. (Acceptable values are: \"json\")"
+                    },
+                    {
+                        "name": "fields",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Selector specifying which fields to include in a partial response."
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
+                    },
+                    {
+                        "name": "oauth_token",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "OAuth 2.0 token for the current user."
+                    },
+                    {
+                        "name": "prettyPrint",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "default": true,
+                        "type": "boolean",
+                        "description": "Returns response with indentations and line breaks."
+                    },
+                    {
+                        "name": "quotaUser",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
+                    },
+                    {
+                        "name": "userIp",
+                        "in": "query",
+                        "required": false,
+                        "x-is-map": false,
+                        "type": "string",
+                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                    },
+                    {
+                        "name": "cal_id",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "required": true,
+                        "x-is-map": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocMydocMessagesAppointmentCollection"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "ApiMydocHcpMessagesHcpAssociationResponseMessage": {
+            "title": "ApiMydocHcpMessagesHcpAssociationResponseMessage",
+            "type": "object",
+            "properties": {
+                "hcp_type": {
+                    "$ref": "#/definitions/ApiMydocHcpMessagesHcpTypeResponseMessage"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "state": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesStateResponseMessage"
+                }
+            }
+        },
+        "ApiMydocHcpMessagesHcpTypeResponseMessage": {
+            "title": "ApiMydocHcpMessagesHcpTypeResponseMessage",
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesStateResponseMessage": {
+            "title": "ApiMydocMydocMessagesStateResponseMessage",
+            "type": "object",
+            "properties": {
+                "abbreviation": {
+                    "type": "string"
+                },
+                "country": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesCountryResponseMessage"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesCountryResponseMessage": {
+            "title": "ApiMydocMydocMessagesCountryResponseMessage",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "international_code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocHcpMessagesHcpRequestMessage": {
+            "title": "ApiMydocHcpMessagesHcpRequestMessage",
+            "type": "object",
+            "properties": {
+                "address_line_1": {
+                    "type": "string"
+                },
+                "address_line_2": {
+                    "type": "string"
+                },
+                "association_id": {
+                    "type": "string"
+                },
+                "birthdate": {
+                    "type": "string"
+                },
+                "city_id": {
+                    "type": "string"
+                },
+                "document_type_id": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "hcp_specialty": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocHcpMessagesHcpSpecialtyRequestMessage"
+                    }
+                },
+                "home_page": {
+                    "type": "string"
+                },
+                "id_doc_number": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "license_nr": {
+                    "type": "string"
+                },
+                "linkedin_profile": {
+                    "type": "string"
+                },
+                "postcode": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocHcpMessagesHcpSpecialtyRequestMessage": {
+            "title": "ApiMydocHcpMessagesHcpSpecialtyRequestMessage",
+            "type": "object",
+            "properties": {
+                "hcp_specialty_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocHcpMessagesHcpResponseMessage": {
+            "title": "ApiMydocHcpMessagesHcpResponseMessage",
+            "type": "object",
+            "properties": {
+                "address_line_1": {
+                    "type": "string"
+                },
+                "address_line_2": {
+                    "type": "string"
+                },
+                "association": {
+                    "$ref": "#/definitions/ApiMydocHcpMessagesHcpAssociationResponseMessage"
+                },
+                "birthdate": {
+                    "type": "string"
+                },
+                "city": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesCityResponseMessage"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "hcp_specialty": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocHcpMessagesHcpSpecialtyResponseMessage"
+                    }
+                },
+                "home_page": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "id_doc_number": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "license_nr": {
+                    "type": "string"
+                },
+                "linkedin_profile": {
+                    "type": "string"
+                },
+                "postcode": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesCityResponseMessage": {
+            "title": "ApiMydocMydocMessagesCityResponseMessage",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "state": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesStateResponseMessage"
+                }
+            }
+        },
+        "ApiMydocHcpMessagesHcpSpecialtyResponseMessage": {
+            "title": "ApiMydocHcpMessagesHcpSpecialtyResponseMessage",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocHcpMessagesHcpResponseMessageCollection": {
+            "title": "ApiMydocHcpMessagesHcpResponseMessageCollection",
+            "type": "object",
+            "properties": {
+                "professionals": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocHcpMessagesHcpResponseMessage"
+                    }
+                }
+            }
+        },
+        "ApiMydocHcpMessagesHcpUpdateRequestMessage": {
+            "title": "ApiMydocHcpMessagesHcpUpdateRequestMessage",
+            "type": "object",
+            "properties": {
+                "address_line_1": {
+                    "type": "string"
+                },
+                "address_line_2": {
+                    "type": "string"
+                },
+                "association_id": {
+                    "type": "string"
+                },
+                "birthdate": {
+                    "type": "string"
+                },
+                "city_id": {
+                    "type": "string"
+                },
+                "document_type_id": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "hcp_specialty": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocHcpMessagesHcpSpecialtyRequestMessage"
+                    }
+                },
+                "home_page": {
+                    "type": "string"
+                },
+                "id_doc_number": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "license_nr": {
+                    "type": "string"
+                },
+                "linkedin_profile": {
+                    "type": "string"
+                },
+                "postcode": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesAppointmentCollection": {
+            "title": "ApiMydocMydocMessagesAppointmentCollection",
+            "type": "object",
+            "properties": {
+                "entries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesAppointmentItem"
+                    }
+                }
+            }
+        },
+        "ApiMydocMydocMessagesAppointmentItem": {
+            "title": "ApiMydocMydocMessagesAppointmentItem",
+            "type": "object",
+            "properties": {
+                "item": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesAppointmentResponseMessage"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesAppointmentResponseMessage": {
+            "title": "ApiMydocMydocMessagesAppointmentResponseMessage",
+            "type": "object",
+            "properties": {
+                "calendar_id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "hcp_comments": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "patient_comments": {
+                    "type": "string"
+                },
+                "patient_fullname": {
+                    "type": "string"
+                },
+                "patient_id": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesAppointmentRequestMessage": {
+            "title": "ApiMydocMydocMessagesAppointmentRequestMessage",
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string"
+                },
+                "hcp_comments": {
+                    "type": "string"
+                },
+                "patient_comments": {
+                    "type": "string"
+                },
+                "patient_id": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesUserInfo": {
+            "title": "ApiMydocMydocMessagesUserInfo",
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_superuser": {
+                    "type": "boolean"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientCollection": {
+            "title": "ApiMydocPatientMessagesPatientCollection",
+            "type": "object",
+            "properties": {
+                "patients": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                    }
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientResponseMessage": {
+            "title": "ApiMydocPatientMessagesPatientResponseMessage",
+            "type": "object",
+            "properties": {
+                "address_line_1": {
+                    "type": "string"
+                },
+                "address_line_2": {
+                    "type": "string"
+                },
+                "birthdate": {
+                    "type": "string"
+                },
+                "city": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesCityResponseMessage"
+                },
+                "document_type": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "hci_plans": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientHCIPlanResponse"
+                    }
+                },
+                "hcp_favorites": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientHcpFavoriteResponse"
+                    }
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "id_doc_number": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "primary_patients": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientMessage"
+                    }
+                },
+                "secondary_patients": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientMessage"
+                    }
+                },
+                "type_primary": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientHCIPlanResponse": {
+            "title": "ApiMydocPatientMessagesPatientHCIPlanResponse",
+            "type": "object",
+            "properties": {
+                "number": {
+                    "type": "string"
+                },
+                "plan": {
+                    "type": "string"
+                },
+                "provider": {
+                    "type": "string"
+                },
+                "security_code": {
+                    "type": "string"
+                },
+                "valid_until": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientHcpFavoriteResponse": {
+            "title": "ApiMydocPatientMessagesPatientHcpFavoriteResponse",
+            "type": "object",
+            "properties": {
+                "first_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientMessage": {
+            "title": "ApiMydocPatientMessagesPatientMessage",
+            "type": "object",
+            "properties": {
+                "first_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientHCIPlanRequest": {
+            "title": "ApiMydocPatientMessagesPatientHCIPlanRequest",
+            "type": "object",
+            "properties": {
+                "security_code": {
+                    "type": "string"
+                },
+                "valid_until": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientRequestMessage": {
+            "title": "ApiMydocPatientMessagesPatientRequestMessage",
+            "type": "object",
+            "properties": {
+                "address_line_1": {
+                    "type": "string"
+                },
+                "address_line_2": {
+                    "type": "string"
+                },
+                "birthdate": {
+                    "type": "string"
+                },
+                "city_id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "document_type_id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "id_doc_number": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "postcode": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
