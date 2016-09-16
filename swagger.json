@@ -41,21 +41,21 @@
                 "parameters": [
                     {
                         "name": "username",
-                        "in": "path",
+                        "in": "formData",
                         "type": "string",
                         "required": true,
                         "description": "User Name (email)"
                     },
                     {
                         "name": "email",
-                        "in": "path",
+                        "in": "formData",
                         "type": "string",
                         "required": true,
                         "description": "email"
                     },
                     {
                         "name": "password",
-                        "in": "path",
+                        "in": "formData",
                         "type": "string",
                         "required": true,
                         "description": "User password"
@@ -65,11 +65,11 @@
                     "200": {
                         "description": null,
                         "schema": {
-                            "title": "ApiMydocPatientMessagesPatientRequestMessage",
+                            "title": "User Info",
                             "type": "object",
                             "properties": {
                                 "token": {
-                                    "type": "string",
+                                    "type": "string"
                                 },
                                 "user": {
                                     "type": "object",
@@ -91,6 +91,8 @@
                             }
                         }
                     }
+                },
+                "security": []
             }
         },
         "/_ah/api/mydoc/v0.2.2_RC/auth/getuser": {
