@@ -2,11 +2,11 @@
     "swagger": "2.0",
     "info": {
         "version": null,
-        "title": "mydoc-v0.2.2_RC.discovery",
-        "description": "mydoc API",
+        "title": "MyDoc v0.2.2_RC",
+        "description": "mydoc API documentation",
         "license": {
-            "name": "MIT",
-            "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+            "name": "Fideicomiso Tiempo y Salud (R)",
+            "url": ""
         }
     },
     "host": "gsk-mydoc-uat-bup.appspot.com",
@@ -28,7 +28,72 @@
         "application/json"
     ],
     "paths": {
-        "/auth/getuser": {
+        "/auth/login/": {
+            "post": {
+                "name": "Login",
+                "description": "Check the credentials and return the REST Token\nif the credentials are valid and authenticated.\nCalls Django Auth login method to register User ID\nin Django session framework\n\nAccept the following POST parameters: username, password\nReturn the REST Framework Token Object's key.",
+                "tags": [
+                    "auth"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "path",
+                        "type": "string",
+                        "required": true,
+                        "description": "User Name (email)"
+                    },
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "type": "string",
+                        "required": true,
+                        "description": "email"
+                    },
+                    {
+                        "name": "password",
+                        "in": "path",
+                        "type": "string",
+                        "required": true,
+                        "description": "User password"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": null,
+                        "schema": {
+                            "title": "ApiMydocPatientMessagesPatientRequestMessage",
+                            "type": "object",
+                            "properties": {
+                                "token": {
+                                    "type": "string",
+                                },
+                                "user": {
+                                    "type": "object",
+                                    "properties": {
+                                        "username": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "first_name": {
+                                            "type": "string"
+                                        },
+                                        "last_name": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }
+        },
+        "/_ah/api/mydoc/v0.2.2_RC/auth/getuser": {
             "get": {
                 "description": "Exposes an API endpoint to obtain user data",
                 "tags": [
@@ -38,7 +103,15 @@
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "type": "string",
+                        "required": true,
+                        "description": "JWT token authorization"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": null,

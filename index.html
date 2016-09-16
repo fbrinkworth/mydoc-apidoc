@@ -34,7 +34,6 @@
   <script type="text/javascript">
     $(function () {
       var url = window.location.search.match(/url=([^&]+)/);
-      var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZlZGVyaWNvLmJyaW5rd29ydGhAb3V0bG9vay5jbyIsIm9yaWdfaWF0IjoxNDczODk3NDc5LCJ1c2VyX2lkIjoxMCwiZW1haWwiOiJmZWRlcmljby5icmlua3dvcnRoQG91dGxvb2suY29tIiwiZXhwIjoxNDczOTgzODc5fQ.x_GZoHGRcd0otT4U7NkoCh-0Xoxlu6eM3PeJrca0Am4";
 
       if (url && url.length > 1) {
         url = decodeURIComponent(url[1]);
@@ -66,9 +65,6 @@
               additionalQueryStringParams: {}
             });
           }
-
-          var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization( "Authorization", "Bearer " + token, "header" );
-          window.swaggerUi.api.clientAuthorizations.add( "bearer", apiKeyAuth );
 
           if(window.SwaggerTranslator) {
             window.SwaggerTranslator.translate();
