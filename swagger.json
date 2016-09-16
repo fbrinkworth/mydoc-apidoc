@@ -40,25 +40,13 @@
                 ],
                 "parameters": [
                     {
-                        "name": "username",
-                        "in": "formData",
-                        "type": "string",
+                        "name": "body",
+                        "in": "body",
                         "required": true,
-                        "description": "User Name (email)"
-                    },
-                    {
-                        "name": "email",
-                        "in": "formData",
-                        "type": "string",
-                        "required": true,
-                        "description": "email"
-                    },
-                    {
-                        "name": "password",
-                        "in": "formData",
-                        "type": "string",
-                        "required": true,
-                        "description": "User password"
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocHcpMessagesLoginRequestMessage"
+                        }
                     }
                 ],
                 "responses": {
@@ -2175,6 +2163,27 @@
                 },
                 "postcode": {
                     "type": "string"
+                }
+            }
+        },
+        "ApiMydocHcpMessagesLoginRequestMessage": {
+            "title": "ApiMydocHcpMessagesLoginRequestMessage",
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "required": true,
+                    "description": "User Name (email)"
+                },
+                "email": {
+                    "type": "string",
+                    "required": true,
+                    "description": "email"
+                },
+                "password": {
+                    "type": "string",
+                    "required": true,
+                    "description": "User password"
                 }
             }
         }
