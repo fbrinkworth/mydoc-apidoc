@@ -114,7 +114,7 @@
         },
         "/cal_schedule/{cal_id}/weekday/{weekday}": {
             "get": {
-                "description": "Returns a Calendar Schedule for a Weekday (Monday &#x3D;&#x3D; 0)",
+                "description": "Returns a Calendar Schedule for a Weekday (Monday 0)",
                 "tags": [
                     "cal_day_schedule"
                 ],
@@ -198,7 +198,7 @@
         },
         "/cal_schedule/{cal_id}/{weekday}/{start}/{end}/{tb}": {
             "put": {
-                "description": "Creates or updates a weekday entry of the Calendar Week Schedule (Monday &#x3D;&#x3D; 0)",
+                "description": "Creates or updates a weekday entry of the Calendar Week Schedule (Monday 0)",
                 "tags": [
                     "cal_schedule"
                 ],
@@ -268,7 +268,7 @@
         },
         "/calendar/{cal_id}": {
             "get": {
-                "description": "Returns a Calendar&#x27;s basic data",
+                "description": "Returns a Calendars basic data",
                 "tags": [
                     "calendar"
                 ],
@@ -514,7 +514,7 @@
         },
         "/items/ps_id/{ps_id}/start/{start_date}/end/{end_date}": {
             "get": {
-                "description": "Returns all PS&#x27;s appointments in a range of dates",
+                "description": "Returns all PSs appointments in a range of dates",
                 "tags": [
                     "items_ps_daterange"
                 ],
@@ -568,7 +568,7 @@
         },
         "/patient/{patient_id}": {
             "get": {
-                "description": "Returns the Patient&#x27;s basic data",
+                "description": "Returns the Patients basic data",
                 "tags": [
                     "patient"
                 ],
@@ -604,7 +604,7 @@
                 }
             },
             "patch": {
-                "description": "Updates a Patient&#x27;s data . This method supports patch semantics.",
+                "description": "Updates a Patients data . This method supports patch semantics.",
                 "tags": [
                     "patient"
                 ],
@@ -640,7 +640,7 @@
                 }
             },
             "update": {
-                "description": "Updates a Patient&#x27;s data",
+                "description": "Updates a Patients data",
                 "tags": [
                     "patient"
                 ],
@@ -762,7 +762,7 @@
         },
         "/patient_plan/{hciplan_id}": {
             "update": {
-                "description": "Updates a Patient&#x27;s HCI Plan",
+                "description": "Updates a Patients HCI Plan",
                 "tags": [
                     "patient_plan"
                 ],
@@ -838,7 +838,7 @@
         },
         "/ps/{ps_id}": {
             "get": {
-                "description": "Returns a PS&#x27;s basic data",
+                "description": "Returns a PSs basic data",
                 "tags": [
                     "ps"
                 ],
@@ -922,7 +922,7 @@
         },
         "/reschedule/{cal_id}/{date}/{time}/{item_id}": {
             "put": {
-                "description": "Re-schedules an existing appointment to the specified calendar&#x27;s time slot",
+                "description": "Re-schedules an existing appointment to the specified calendars time slot",
                 "tags": [
                     "reschedule"
                 ],
@@ -984,7 +984,7 @@
         },
         "/agenda/{cal_id}/{date}": {
             "get": {
-                "description": "Returns a calendar&#x27;s workday for this date",
+                "description": "Returns a calendars workday for this date",
                 "tags": [
                     "workday"
                 ],
@@ -1442,7 +1442,7 @@
             }
         },
         "InOutMessagesWorkdayEntry": {
-            "description": "Workday Entry &#x3D; time + item",
+            "description": "Workday Entry: time + item",
             "type": "object",
             "properties": {
                 "item": {
@@ -1458,7 +1458,7 @@
             "type": "object",
             "properties": {
                 "entries": {
-                    "description": "Workday Entry &#x3D; time + item",
+                    "description": "Workday Entry: time + item",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/InOutMessagesWorkdayEntry"
