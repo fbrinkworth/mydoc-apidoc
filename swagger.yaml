@@ -1,6 +1,6 @@
-swagger: 2.0
+swagger: '2.0'
 info:
-  version: "2.0.0"
+  version: 2.0.0
   title: MyDoc v0.2.2_RC
   description: myDoc API using Google Endpoints
   license:
@@ -20,9 +20,9 @@ consumes:
 produces:
 - application/json
 paths:
-  agenda/{cal_id}/cancel/{item_id}
+  /agenda/{cal_id}/cancel/{item_id}:
     delete:
-      description: "Cancels an appointment"
+      description: Cancels an appointment
       tags:
         - appointment
       operationId: DeleteAgendaCancelByCalIdAndItemId_
@@ -37,26 +37,24 @@ paths:
           x-is-map: false
         - name: cal_id
           in: path
-          description: "Parameter cal_id"
+          description: Parameter cal_id
           required: true
           type: string
           x-is-map: false
         - name: item_id
           in: path
-          description: "Parameter item_id"
+          description: Parameter item_id
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: Item Serial Data Structure
+          description: "Item Serial Data Structure"
           schema:
             $ref: '#/definitions/InOutMessagesItemMessage'
-      security:
-      - auth: []            
-  appointment/{item_id}
+  /appointment/{item_id}:
     get:
-      description: "Returns the appointment specified by its id"
+      description: Returns the appointment specified by its id
       tags:
         - appointment
       operationId: GetAppointmentByItemId_
@@ -71,20 +69,18 @@ paths:
           x-is-map: false
         - name: item_id
           in: path
-          description: "Parameter item_id"
+          description: Parameter item_id
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: Item Serial Data Structure
+          description: "Item Serial Data Structure"
           schema:
             $ref: '#/definitions/InOutMessagesItemMessage'
-      security:
-      - auth: []            
-  cal_schedule/{cal_id}/weekday/{weekday}
+  /cal_schedule/{cal_id}/weekday/{weekday}:
     get:
-      description: "Returns a Calendar Schedule for a Weekday (Monday &#x3D;&#x3D; 0)"
+      description: Returns a Calendar Schedule for a Weekday (Monday &#x3D;&#x3D; 0)
       tags:
         - cal_day_schedule
       operationId: GetCalScheduleWeekdayByCalIdAndWeekday_
@@ -99,26 +95,24 @@ paths:
           x-is-map: false
         - name: cal_id
           in: path
-          description: "Parameter cal_id"
+          description: Parameter cal_id
           required: true
           type: string
           x-is-map: false
         - name: weekday
           in: path
-          description: "Parameter weekday"
+          description: Parameter weekday
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: Calendar Weekly Schedule
+          description: "Calendar Weekly Schedule"
           schema:
             $ref: '#/definitions/InOutMessagesDayScheduleMessage'
-      security:
-      - auth: []            
-  cal_schedule/{cal_id}
+  /cal_schedule/{cal_id}:
     get:
-      description: "Returns a Calendar Week Schedule"
+      description: Returns a Calendar Week Schedule
       tags:
         - cal_schedule
       operationId: GetCalScheduleByCalId_
@@ -133,20 +127,18 @@ paths:
           x-is-map: false
         - name: cal_id
           in: path
-          description: "Parameter cal_id"
+          description: Parameter cal_id
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: 
+          description: ""
           schema:
             $ref: '#/definitions/InOutMessagesWeekScheduleMessage'
-      security:
-      - auth: []            
-  cal_schedule/{cal_id}/{weekday}/{start}/{end}/{tb}
+  /cal_schedule/{cal_id}/{weekday}/{start}/{end}/{tb}:
     put:
-      description: "Creates or updates a weekday entry of the Calendar Week Schedule (Monday &#x3D;&#x3D; 0)"
+      description: Creates or updates a weekday entry of the Calendar Week Schedule (Monday &#x3D;&#x3D; 0)
       tags:
         - cal_schedule
       operationId: PutCalScheduleByCalIdAndWeekdayAndStartAndEndAndTb_
@@ -161,44 +153,42 @@ paths:
           x-is-map: false
         - name: cal_id
           in: path
-          description: "Parameter cal_id"
+          description: Parameter cal_id
           required: true
           type: string
           x-is-map: false
         - name: end
           in: path
-          description: "Parameter end"
+          description: Parameter end
           required: true
           type: string
           x-is-map: false
         - name: start
           in: path
-          description: "Parameter start"
+          description: Parameter start
           required: true
           type: string
           x-is-map: false
         - name: tb
           in: path
-          description: "Parameter tb"
+          description: Parameter tb
           required: true
           type: string
           x-is-map: false
         - name: weekday
           in: path
-          description: "Parameter weekday"
+          description: Parameter weekday
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: Calendar Weekly Schedule
+          description: "Calendar Weekly Schedule"
           schema:
             $ref: '#/definitions/InOutMessagesDayScheduleMessage'
-      security:
-      - auth: []            
-  calendar/{cal_id}
+  /calendar/{cal_id}:
     get:
-      description: "Returns a Calendar&#x27;s basic data"
+      description: Returns a Calendar&#x27;s basic data
       tags:
         - calendar
       operationId: GetCalendarByCalId_
@@ -213,20 +203,18 @@ paths:
           x-is-map: false
         - name: cal_id
           in: path
-          description: "Parameter cal_id"
+          description: Parameter cal_id
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: Calendar Serial Data Structure
+          description: "Calendar Serial Data Structure"
           schema:
             $ref: '#/definitions/InOutMessagesCalDataMessage'
-      security:
-      - auth: []            
-  free/{cal_id}/start/{start_date}/end/{end_date}
+  /free/{cal_id}/start/{start_date}/end/{end_date}:
     get:
-      description: "Returns all free timeslots in a time range for the specified calendar"
+      description: Returns all free timeslots in a time range for the specified calendar
       tags:
         - free
       operationId: GetFreeStartEndByCalIdAndStartDateAndEndDate_
@@ -241,32 +229,30 @@ paths:
           x-is-map: false
         - name: cal_id
           in: path
-          description: "Parameter cal_id"
+          description: Parameter cal_id
           required: true
           type: string
           x-is-map: false
         - name: end_date
           in: path
-          description: "Parameter end_date"
+          description: Parameter end_date
           required: true
           type: string
           x-is-map: false
         - name: start_date
           in: path
-          description: "Parameter start_date"
+          description: Parameter start_date
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: Free items in a range of dates
+          description: "Free items in a range of dates"
           schema:
             $ref: '#/definitions/InOutMessagesFreeItemsMessage'
-      security:
-      - auth: []            
-  item/{cal_id}/{date}/{time}
+  /item/{cal_id}/{date}/{time}:
     get:
-      description: "Returns either an appointment or a free item timeslot from a calendar"
+      description: Returns either an appointment or a free item timeslot from a calendar
       tags:
         - item
       operationId: GetItemByCalIdAndDateAndTime_
@@ -281,32 +267,30 @@ paths:
           x-is-map: false
         - name: cal_id
           in: path
-          description: "Parameter cal_id"
+          description: Parameter cal_id
           required: true
           type: string
           x-is-map: false
         - name: date
           in: path
-          description: "Parameter date"
+          description: Parameter date
           required: true
           type: string
           x-is-map: false
         - name: time
           in: path
-          description: "Parameter time"
+          description: Parameter time
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: Item Serial Data Structure
+          description: "Item Serial Data Structure"
           schema:
             $ref: '#/definitions/InOutMessagesItemMessage'
-      security:
-      - auth: []            
-  agenda/{cal_id}/item/{item_id}
+  /agenda/{cal_id}/item/{item_id}:
     post:
-      description: "Updates an appointment identified by item id"
+      description: Updates an appointment identified by item id
       tags:
         - item
       operationId: PostAgendaItemByCalIdAndItemId_
@@ -321,26 +305,24 @@ paths:
           x-is-map: false
         - name: cal_id
           in: path
-          description: "Parameter cal_id"
+          description: Parameter cal_id
           required: true
           type: string
           x-is-map: false
         - name: item_id
           in: path
-          description: "Parameter item_id"
+          description: Parameter item_id
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: Item Serial Data Structure
+          description: "Item Serial Data Structure"
           schema:
             $ref: '#/definitions/InOutMessagesItemMessage'
-      security:
-      - auth: []            
-  newitem/{cal_id}/{date}/{time}
+  /newitem/{cal_id}/{date}/{time}:
     put:
-      description: "Inserts a new appointment"
+      description: Inserts a new appointment
       tags:
         - item
       operationId: PutNewitemByCalIdAndDateAndTime_
@@ -355,32 +337,30 @@ paths:
           x-is-map: false
         - name: cal_id
           in: path
-          description: "Parameter cal_id"
+          description: Parameter cal_id
           required: true
           type: string
           x-is-map: false
         - name: date
           in: path
-          description: "Parameter date"
+          description: Parameter date
           required: true
           type: string
           x-is-map: false
         - name: time
           in: path
-          description: "Parameter time"
+          description: Parameter time
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: Item Serial Data Structure
+          description: "Item Serial Data Structure"
           schema:
             $ref: '#/definitions/InOutMessagesItemMessage'
-      security:
-      - auth: []            
-  items/ps_id/{ps_id}/start/{start_date}/end/{end_date}
+  /items/ps_id/{ps_id}/start/{start_date}/end/{end_date}:
     get:
-      description: "Returns all PS&#x27;s appointments in a range of dates"
+      description: Returns all PS&#x27;s appointments in a range of dates
       tags:
         - items_ps_daterange
       operationId: GetItemsPsIdStartEndByPsIdAndStartDateAndEndDate_
@@ -395,32 +375,30 @@ paths:
           x-is-map: false
         - name: end_date
           in: path
-          description: "Parameter end_date"
+          description: Parameter end_date
           required: true
           type: string
           x-is-map: false
         - name: ps_id
           in: path
-          description: "Parameter ps_id"
+          description: Parameter ps_id
           required: true
           type: string
           x-is-map: false
         - name: start_date
           in: path
-          description: "Parameter start_date"
+          description: Parameter start_date
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: 
+          description: ""
           schema:
             $ref: '#/definitions/InOutMessagesAppCollectionMessage'
-      security:
-      - auth: []            
-  patient/{patient_id}
+  /patient/{patient_id}:
     get:
-      description: "Returns the Patient&#x27;s basic data"
+      description: Returns the Patient&#x27;s basic data
       tags:
         - patient
       operationId: GetPatientByPatientId_
@@ -435,42 +413,17 @@ paths:
           x-is-map: false
         - name: patient_id
           in: path
-          description: "Parameter patient_id"
+          description: Parameter patient_id
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: 
+          description: ""
           schema:
             $ref: '#/definitions/InOutMessagesPatientOutDataMessage'
-      security:
-      - auth: []            
-  patient/new
-    insert:
-      description: "Adds a new Patient"
-      tags:
-        - patient
-      operationId: InsertPatientNew_
-      produces: 
-      - application/json      
-      parameters:
-        - name: authorization
-          in: header
-          description: JWT token authorization
-          required: true
-          type: string
-          x-is-map: false
-      responses:
-        200:
-          description: 
-          schema:
-            $ref: '#/definitions/InOutMessagesPatientOutDataMessage'
-      security:
-      - auth: []            
-  patient/{patient_id}
     patch:
-      description: "Updates a Patient&#x27;s data . This method supports patch semantics."
+      description: Updates a Patient&#x27;s data . This method supports patch semantics.
       tags:
         - patient
       operationId: PatchPatientByPatientId_
@@ -485,20 +438,17 @@ paths:
           x-is-map: false
         - name: patient_id
           in: path
-          description: "Parameter patient_id"
+          description: Parameter patient_id
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: 
+          description: ""
           schema:
             $ref: '#/definitions/InOutMessagesPatientOutDataMessage'
-      security:
-      - auth: []            
-  patient/{patient_id}
     update:
-      description: "Updates a Patient&#x27;s data"
+      description: Updates a Patient&#x27;s data
       tags:
         - patient
       operationId: UpdatePatientByPatientId_
@@ -513,20 +463,38 @@ paths:
           x-is-map: false
         - name: patient_id
           in: path
-          description: "Parameter patient_id"
+          description: Parameter patient_id
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: 
+          description: ""
           schema:
             $ref: '#/definitions/InOutMessagesPatientOutDataMessage'
-      security:
-      - auth: []            
-  patient/{patient_id}/hciplan/{hciplan_id}/hciplan_nr/{hciplan_nr}
+  /patient/new:
+    insert:
+      description: Adds a new Patient
+      tags:
+        - patient
+      operationId: InsertPatientNew_
+      produces: 
+      - application/json      
+      parameters:
+        - name: authorization
+          in: header
+          description: JWT token authorization
+          required: true
+          type: string
+          x-is-map: false
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: '#/definitions/InOutMessagesPatientOutDataMessage'
+  /patient/{patient_id}/hciplan/{hciplan_id}/hciplan_nr/{hciplan_nr}:
     add:
-      description: "Adds a HCI Plan to a Patient"
+      description: Adds a HCI Plan to a Patient
       tags:
         - patient_plan
       operationId: AddPatientHciplanHciplanNrByPatientIdAndHciplanIdAndHciplanNr_
@@ -541,32 +509,30 @@ paths:
           x-is-map: false
         - name: hciplan_id
           in: path
-          description: "Parameter hciplan_id"
+          description: Parameter hciplan_id
           required: true
           type: string
           x-is-map: false
         - name: hciplan_nr
           in: path
-          description: "Parameter hciplan_nr"
+          description: Parameter hciplan_nr
           required: true
           type: string
           x-is-map: false
         - name: patient_id
           in: path
-          description: "Parameter patient_id"
+          description: Parameter patient_id
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: 
+          description: ""
           schema:
             $ref: '#/definitions/InOutMessagesPatientOutDataMessage'
-      security:
-      - auth: []            
-  patient_plan/{hciplan_id}
+  /patient_plan/{hciplan_id}:
     update:
-      description: "Updates a Patient&#x27;s HCI Plan"
+      description: Updates a Patient&#x27;s HCI Plan
       tags:
         - patient_plan
       operationId: UpdatePatientPlanByHciplanId_
@@ -581,20 +547,18 @@ paths:
           x-is-map: false
         - name: hciplan_id
           in: path
-          description: "Parameter hciplan_id"
+          description: Parameter hciplan_id
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: 
+          description: ""
           schema:
             $ref: '#/definitions/InOutMessagesPatientHCIPlanMessage'
-      security:
-      - auth: []            
-  patient/{patient_id}/secondary
+  /patient/{patient_id}/secondary:
     insert:
-      description: "Adds a secondary Patient to Primary"
+      description: Adds a secondary Patient to Primary
       tags:
         - patient_secondary
       operationId: InsertPatientSecondaryByPatientId_
@@ -609,20 +573,18 @@ paths:
           x-is-map: false
         - name: patient_id
           in: path
-          description: "Parameter patient_id"
+          description: Parameter patient_id
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: 
+          description: ""
           schema:
             $ref: '#/definitions/InOutMessagesPatientOutDataMessage'
-      security:
-      - auth: []            
-  ps/{ps_id}
+  /ps/{ps_id}:
     get:
-      description: "Returns a PS&#x27;s basic data"
+      description: Returns a PS&#x27;s basic data
       tags:
         - ps
       operationId: GetPsByPsId_
@@ -637,20 +599,18 @@ paths:
           x-is-map: false
         - name: ps_id
           in: path
-          description: "Parameter ps_id"
+          description: Parameter ps_id
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: 
+          description: ""
           schema:
             $ref: '#/definitions/InOutMessagesPsDataMessage'
-      security:
-      - auth: []            
-  ps/{ps_id}/{date}
+  /ps/{ps_id}/{date}:
     get:
-      description: "Returns all appointmens and free slots for a PS on a particular date"
+      description: Returns all appointmens and free slots for a PS on a particular date
       tags:
         - ps_items
       operationId: GetPsByPsIdAndDate_
@@ -665,26 +625,24 @@ paths:
           x-is-map: false
         - name: date
           in: path
-          description: "Parameter date"
+          description: Parameter date
           required: true
           type: string
           x-is-map: false
         - name: ps_id
           in: path
-          description: "Parameter ps_id"
+          description: Parameter ps_id
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: Workday Serial Data Structure
+          description: "Workday Serial Data Structure"
           schema:
             $ref: '#/definitions/InOutMessagesWorkdayMessage'
-      security:
-      - auth: []            
-  reschedule/{cal_id}/{date}/{time}/{item_id}
+  /reschedule/{cal_id}/{date}/{time}/{item_id}:
     put:
-      description: "Re-schedules an existing appointment to the specified calendar&#x27;s time slot"
+      description: Re-schedules an existing appointment to the specified calendar&#x27;s time slot
       tags:
         - reschedule
       operationId: PutRescheduleByCalIdAndDateAndTimeAndItemId_
@@ -699,38 +657,36 @@ paths:
           x-is-map: false
         - name: cal_id
           in: path
-          description: "Parameter cal_id"
+          description: Parameter cal_id
           required: true
           type: string
           x-is-map: false
         - name: date
           in: path
-          description: "Parameter date"
+          description: Parameter date
           required: true
           type: string
           x-is-map: false
         - name: item_id
           in: path
-          description: "Parameter item_id"
+          description: Parameter item_id
           required: true
           type: string
           x-is-map: false
         - name: time
           in: path
-          description: "Parameter time"
+          description: Parameter time
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: Item Serial Data Structure
+          description: "Item Serial Data Structure"
           schema:
             $ref: '#/definitions/InOutMessagesItemMessage'
-      security:
-      - auth: []            
-  agenda/{cal_id}/{date}
+  /agenda/{cal_id}/{date}:
     get:
-      description: "Returns a calendar&#x27;s workday for this date"
+      description: Returns a calendar&#x27;s workday for this date
       tags:
         - workday
       operationId: GetAgendaByCalIdAndDate_
@@ -745,34 +701,32 @@ paths:
           x-is-map: false
         - name: cal_id
           in: path
-          description: "Parameter cal_id"
+          description: Parameter cal_id
           required: true
           type: string
           x-is-map: false
         - name: date
           in: path
-          description: "Parameter date"
+          description: Parameter date
           required: true
           type: string
           x-is-map: false
       responses:
         200:
-          description: Workday Serial Data Structure
+          description: "Workday Serial Data Structure"
           schema:
             $ref: '#/definitions/InOutMessagesWorkdayMessage'
-      security:
-      - auth: []            
 definitions:
   InOutMessagesAppCollectionMessage:
-    title:
     type: object
     properties:
       appointments:
         description: Appointment url
         type: array
         items:
+          $ref: '#/definitions/InOutMessagesAppointmentMessage'
   InOutMessagesAppointmentMessage:
-    title:
+    description: Appointment url
     type: object
     properties:
       date:
@@ -784,7 +738,7 @@ definitions:
       time:
         type: string
   InOutMessagesCalDataMessage:
-    title:
+    description: Calendar Serial Data Structure
     type: object
     properties:
       cal_id:
@@ -805,7 +759,7 @@ definitions:
       ps_specialty:
         type: string
   InOutMessagesDayScheduleMessage:
-    title:
+    description: Calendar Weekly Schedule
     type: object
     properties:
       day_of_week:
@@ -814,11 +768,12 @@ definitions:
         description: Dayly Schedule - hh:mm:ss - minutes
         type: array
         items:
+          $ref: '#/definitions/InOutMessagesTimeslotMessage'
       weekday:
         type: string
         format: int64
   InOutMessagesFreeDateMessage:
-    title:
+    description: Free Items of a certain date
     type: object
     properties:
       date:
@@ -827,8 +782,9 @@ definitions:
         description: Free Item Link
         type: array
         items:
+          $ref: '#/definitions/InOutMessagesFreeItemLinkMessage'
   InOutMessagesFreeItemLinkMessage:
-    title:
+    description: Free Item Link
     type: object
     properties:
       link:
@@ -836,15 +792,15 @@ definitions:
       time:
         type: string
   InOutMessagesFreeItemsMessage:
-    title:
+    description: Free items in a range of dates
     type: object
     properties:
       free:
         description: Free Items of a certain date
         type: array
         items:
+          $ref: '#/definitions/InOutMessagesFreeDateMessage'
   InOutMessagesHCIPlanMessage:
-    title:
     type: object
     properties:
       Id:
@@ -855,7 +811,7 @@ definitions:
       Number:
         type: string
   InOutMessagesItemMessage:
-    title:
+    description: Item Serial Data Structure
     type: object
     properties:
       cal_id:
@@ -891,7 +847,6 @@ definitions:
       time:
         type: string
   InOutMessagesPatientHCIPlanMessage:
-    title:
     type: object
     properties:
       Id:
@@ -910,7 +865,6 @@ definitions:
       Valid_Until:
         type: string
   InOutMessagesPatientInDataMessage:
-    title:
     type: object
     properties:
       Address:
@@ -949,7 +903,6 @@ definitions:
         type: string
         format: int64
   InOutMessagesPatientOutDataMessage:
-    title:
     type: object
     properties:
       Address:
@@ -965,6 +918,7 @@ definitions:
       HCI_Plans:
         type: array
         items:
+          $ref: '#/definitions/InOutMessagesHCIPlanMessage'
       Id_doc_Nr:
         type: string
         format: int64
@@ -989,24 +943,24 @@ definitions:
       SecondaryPatients:
         type: array
         items:
+          $ref: '#/definitions/InOutMessagesSecondaryPatientMessage'
       Status:
         type: string
       Type:
         type: string
   InOutMessagesPsCalMessage:
-    title:
     type: object
     properties:
       cal_id:
         type: string
         format: int64
   InOutMessagesPsDataMessage:
-    title:
     type: object
     properties:
       ps_cals:
         type: array
         items:
+          $ref: '#/definitions/InOutMessagesPsCalMessage'
       ps_id:
         type: string
         format: int64
@@ -1015,13 +969,11 @@ definitions:
       ps_specialty:
         type: string
   InOutMessagesRequestBody:
-    title:
     type: object
     properties:
       message:
         type: string
   InOutMessagesSecondaryPatientMessage:
-    title:
     type: object
     properties:
       Id:
@@ -1030,7 +982,7 @@ definitions:
       Name:
         type: string
   InOutMessagesTimeslotMessage:
-    title:
+    description: Dayly Schedule - hh:mm:ss - minutes
     type: object
     properties:
       start:
@@ -1039,28 +991,28 @@ definitions:
         type: string
         format: int64
   InOutMessagesWeekScheduleMessage:
-    title:
     type: object
     properties:
       workdays:
         description: Calendar Weekly Schedule
         type: array
         items:
+          $ref: '#/definitions/InOutMessagesDayScheduleMessage'
   InOutMessagesWorkdayEntry:
-    title:
+    description: Workday Entry &#x3D; time + item
     type: object
     properties:
       item:
         description: Item Serial Data Structure
-        $ref: '#/definitions/InOutMessagesItemMessage'
       time:
         type: string
   InOutMessagesWorkdayMessage:
-    title:
+    description: Workday Serial Data Structure
     type: object
     properties:
       entries:
         description: Workday Entry &#x3D; time + item
         type: array
         items:
+          $ref: '#/definitions/InOutMessagesWorkdayEntry'
 

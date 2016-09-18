@@ -1,20 +1,20 @@
 {
     "swagger": "2.0",
     "info": {
-        "version": null,
+        "version": "2.0.0",
         "title": "MyDoc v0.2.2_RC",
-        "description": "mydoc API documentation",
+        "description": "myDoc API using Google Endpoints",
         "license": {
             "name": "Fideicomiso Tiempo y Salud (R)",
-            "url": ""
+            "url": "/"
         }
     },
-    "host": "gsk-mydoc-uat-bup.appspot.com",
+    "host": "gsk-mydoc-api-backend.appspot.com",
     "basePath": "/",
     "securityDefinitions": {
-        "Bearer": {
+        "api_key": {
             "type": "apiKey",
-            "name": "Authorization",
+            "name": "api_key",
             "in": "header"
         }
     },
@@ -28,68 +28,13 @@
         "application/json"
     ],
     "paths": {
-        "/auth/login/": {
-            "post": {
-                "name": "Login",
-                "description": "Check the credentials and return the REST Token\nif the credentials are valid and authenticated.\nCalls Django Auth login method to register User ID\nin Django session framework\n\nAccept the following POST parameters: username, password\nReturn the REST Framework Token Object's key.",
+        "/agenda/{cal_id}/cancel/{item_id}": {
+            "delete": {
+                "description": "Cancels an appointment",
                 "tags": [
-                    "auth"
+                    "appointment"
                 ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "x-is-map": false,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocHcpMessagesLoginRequestMessage"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": null,
-                        "schema": {
-                            "title": "User Info",
-                            "type": "object",
-                            "properties": {
-                                "token": {
-                                    "type": "string"
-                                },
-                                "user": {
-                                    "type": "object",
-                                    "properties": {
-                                        "username": {
-                                            "type": "string"
-                                        },
-                                        "email": {
-                                            "type": "string"
-                                        },
-                                        "first_name": {
-                                            "type": "string"
-                                        },
-                                        "last_name": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": []
-            }
-        },
-        "/_ah/api/mydoc/v0.2.2_RC/auth/getuser": {
-            "get": {
-                "description": "Exposes an API endpoint to obtain user data",
-                "tags": [
-                    "auth"
-                ],
-                "operationId": "GetuserAuthGetuser_",
+                "operationId": "DeleteAgendaCancelByCalIdAndItemId_",
                 "produces": [
                     "application/json"
                 ],
@@ -97,701 +42,533 @@
                     {
                         "name": "authorization",
                         "in": "header",
-                        "type": "string",
+                        "description": "JWT token authorization",
                         "required": true,
-                        "description": "JWT token authorization"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": null,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocMydocMessagesUserInfo"
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
-            }
-        },
-        "/_ah/api/mydoc/v0.2.2_RC/hcp/{id}": {
-            "get": {
-                "description": "Exposes an API endpoint to get hcp by id",
-                "tags": [
-                    "hcp"
-                ],
-                "operationId": "GetHcpById_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "alt",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": "json",
                         "type": "string",
-                        "description": "Data format for the response. (Acceptable values are: \"json\")"
+                        "x-is-map": false
                     },
                     {
-                        "name": "fields",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Selector specifying which fields to include in a partial response."
-                    },
-                    {
-                        "name": "key",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
-                    },
-                    {
-                        "name": "oauth_token",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "OAuth 2.0 token for the current user."
-                    },
-                    {
-                        "name": "prettyPrint",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": true,
-                        "type": "boolean",
-                        "description": "Returns response with indentations and line breaks."
-                    },
-                    {
-                        "name": "quotaUser",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
-                    },
-                    {
-                        "name": "userIp",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
-                    },
-                    {
-                        "name": "id",
+                        "name": "cal_id",
                         "in": "path",
+                        "description": "Parameter cal_id",
                         "required": true,
-                        "x-is-map": false,
-                        "type": "integer",
-                        "format": "int32"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": null,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpResponseMessage"
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
-            }
-        },
-        "/_ah/api/mydoc/v0.2.2_RC/hcp.list": {
-            "get": {
-                "description": "Exposes an API endpoint to obtain a list of health care professional Args: None Returns: A list of health care professional",
-                "tags": [
-                    "hcp"
-                ],
-                "operationId": "ListHcpList_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": null,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpResponseMessageCollection"
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
-            }
-        },
-        "/_ah/api/mydoc/v0.2.2_RC/hcp/new": {
-            "post": {
-                "description": "Exposes an API endpoint to create hcp",
-                "tags": [
-                    "hcp"
-                ],
-                "operationId": "NewHcpNew_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "x-is-map": false,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpRequestMessage"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": null,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpResponseMessage"
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
-            }
-        },
-        "/_ah/api/mydoc/v0.2.2_RC/hcp/update/{hcp_id}": {
-            "put": {
-                "description": "Exposes an API endpoint to update hcp",
-                "tags": [
-                    "hcp"
-                ],
-                "operationId": "UpdateHcpHcpUpdateByHcpId_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "alt",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": "json",
                         "type": "string",
-                        "description": "Data format for the response. (Acceptable values are: \"json\")"
-                    },
-                    {
-                        "name": "fields",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Selector specifying which fields to include in a partial response."
-                    },
-                    {
-                        "name": "key",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
-                    },
-                    {
-                        "name": "oauth_token",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "OAuth 2.0 token for the current user."
-                    },
-                    {
-                        "name": "prettyPrint",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": true,
-                        "type": "boolean",
-                        "description": "Returns response with indentations and line breaks."
-                    },
-                    {
-                        "name": "quotaUser",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
-                    },
-                    {
-                        "name": "userIp",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
-                    },
-                    {
-                        "name": "hcp_id",
-                        "in": "path",
-                        "required": true,
-                        "x-is-map": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "x-is-map": false,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpUpdateRequestMessage"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": null,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpResponseMessage"
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
-            }
-        },
-        "/_ah/api/mydoc/v0.2.2_RC/newitem/{param_cal_id}": {
-            "post": {
-                "description": "Inserts a new appointment",
-                "tags": [
-                    "item"
-                ],
-                "operationId": "CreateNewitemByParamCalId_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "alt",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": "json",
-                        "type": "string",
-                        "description": "Data format for the response. (Acceptable values are: \"json\")"
-                    },
-                    {
-                        "name": "fields",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Selector specifying which fields to include in a partial response."
-                    },
-                    {
-                        "name": "key",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
-                    },
-                    {
-                        "name": "oauth_token",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "OAuth 2.0 token for the current user."
-                    },
-                    {
-                        "name": "prettyPrint",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": true,
-                        "type": "boolean",
-                        "description": "Returns response with indentations and line breaks."
-                    },
-                    {
-                        "name": "quotaUser",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
-                    },
-                    {
-                        "name": "userIp",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
-                    },
-                    {
-                        "name": "param_cal_id",
-                        "in": "path",
-                        "required": true,
-                        "x-is-map": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "x-is-map": false,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocMydocMessagesAppointmentRequestMessage"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": null,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocMydocMessagesAppointmentResponseMessage"
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
-            }
-        },
-        "/_ah/api/mydoc/v0.2.2_RC/agenda/item/{item_id}": {
-            "put": {
-                "description": "Updates an appointment identified by item id",
-                "tags": [
-                    "item"
-                ],
-                "operationId": "PutAgendaItemByItemId_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "alt",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": "json",
-                        "type": "string",
-                        "description": "Data format for the response. (Acceptable values are: \"json\")"
-                    },
-                    {
-                        "name": "fields",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Selector specifying which fields to include in a partial response."
-                    },
-                    {
-                        "name": "key",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
-                    },
-                    {
-                        "name": "oauth_token",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "OAuth 2.0 token for the current user."
-                    },
-                    {
-                        "name": "prettyPrint",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": true,
-                        "type": "boolean",
-                        "description": "Returns response with indentations and line breaks."
-                    },
-                    {
-                        "name": "quotaUser",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
-                    },
-                    {
-                        "name": "userIp",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                        "x-is-map": false
                     },
                     {
                         "name": "item_id",
                         "in": "path",
+                        "description": "Parameter item_id",
                         "required": true,
-                        "x-is-map": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "x-is-map": false,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocMydocMessagesAppointmentRequestMessage"
-                        }
+                        "type": "string",
+                        "x-is-map": false
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": null,
+                        "description": "Item Serial Data Structure",
                         "schema": {
-                            "$ref": "#/definitions/ApiMydocMydocMessagesAppointmentResponseMessage"
+                            "$ref": "#/definitions/InOutMessagesItemMessage"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
+                }
             }
         },
-        "/_ah/api/mydoc/v0.2.2_RC/patient/{patient_id}/add_hciplan/{hciplan_id}/hciplan_nr/{hciplan_nr}": {
-            "post": {
-                "description": "Adds a HCI Plan to a Patient",
-                "tags": [
-                    "patient"
-                ],
-                "operationId": "AddHciplanPatientAddHciplanHciplanNrHciplanNr_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "alt",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": "json",
-                        "type": "string",
-                        "description": "Data format for the response. (Acceptable values are: \"json\")"
-                    },
-                    {
-                        "name": "fields",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Selector specifying which fields to include in a partial response."
-                    },
-                    {
-                        "name": "key",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
-                    },
-                    {
-                        "name": "oauth_token",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "OAuth 2.0 token for the current user."
-                    },
-                    {
-                        "name": "prettyPrint",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": true,
-                        "type": "boolean",
-                        "description": "Returns response with indentations and line breaks."
-                    },
-                    {
-                        "name": "quotaUser",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
-                    },
-                    {
-                        "name": "userIp",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
-                    },
-                    {
-                        "name": "hciplan_id",
-                        "in": "path",
-                        "required": true,
-                        "x-is-map": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "hciplan_nr",
-                        "in": "path",
-                        "required": true,
-                        "x-is-map": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "patient_id",
-                        "in": "path",
-                        "required": true,
-                        "x-is-map": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "x-is-map": false,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientHCIPlanRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": null,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
-            }
-        },
-        "/_ah/api/mydoc/v0.2.2_RC/patient/{patient_id}/add_hcp_favorite/{hcp_id}": {
-            "post": {
-                "description": "Exposes an API endpoint to add a favorite hcp to a Patient",
-                "tags": [
-                    "patient"
-                ],
-                "operationId": "AddHcpFavoritePatientAddHcpFavoriteByPatientIdAndHcpId_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "alt",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": "json",
-                        "type": "string",
-                        "description": "Data format for the response. (Acceptable values are: \"json\")"
-                    },
-                    {
-                        "name": "fields",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Selector specifying which fields to include in a partial response."
-                    },
-                    {
-                        "name": "key",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
-                    },
-                    {
-                        "name": "oauth_token",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "OAuth 2.0 token for the current user."
-                    },
-                    {
-                        "name": "prettyPrint",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": true,
-                        "type": "boolean",
-                        "description": "Returns response with indentations and line breaks."
-                    },
-                    {
-                        "name": "quotaUser",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
-                    },
-                    {
-                        "name": "userIp",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
-                    },
-                    {
-                        "name": "hcp_id",
-                        "in": "path",
-                        "required": true,
-                        "x-is-map": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "patient_id",
-                        "in": "path",
-                        "required": true,
-                        "x-is-map": false,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": null,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
-            }
-        },
-        "/_ah/api/mydoc/v0.2.2_RC/patient/{patient_id}": {
+        "/appointment/{item_id}": {
             "get": {
-                "description": "Exposes an API endpoint to obtain by id a Patient",
+                "description": "Returns the appointment specified by its id",
+                "tags": [
+                    "appointment"
+                ],
+                "operationId": "GetAppointmentByItemId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "item_id",
+                        "in": "path",
+                        "description": "Parameter item_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item Serial Data Structure",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesItemMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/cal_schedule/{cal_id}/weekday/{weekday}": {
+            "get": {
+                "description": "Returns a Calendar Schedule for a Weekday (Monday &#x3D;&#x3D; 0)",
+                "tags": [
+                    "cal_day_schedule"
+                ],
+                "operationId": "GetCalScheduleWeekdayByCalIdAndWeekday_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "cal_id",
+                        "in": "path",
+                        "description": "Parameter cal_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "weekday",
+                        "in": "path",
+                        "description": "Parameter weekday",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Calendar Weekly Schedule",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesDayScheduleMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/cal_schedule/{cal_id}": {
+            "get": {
+                "description": "Returns a Calendar Week Schedule",
+                "tags": [
+                    "cal_schedule"
+                ],
+                "operationId": "GetCalScheduleByCalId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "cal_id",
+                        "in": "path",
+                        "description": "Parameter cal_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesWeekScheduleMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/cal_schedule/{cal_id}/{weekday}/{start}/{end}/{tb}": {
+            "put": {
+                "description": "Creates or updates a weekday entry of the Calendar Week Schedule (Monday &#x3D;&#x3D; 0)",
+                "tags": [
+                    "cal_schedule"
+                ],
+                "operationId": "PutCalScheduleByCalIdAndWeekdayAndStartAndEndAndTb_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "cal_id",
+                        "in": "path",
+                        "description": "Parameter cal_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "end",
+                        "in": "path",
+                        "description": "Parameter end",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "start",
+                        "in": "path",
+                        "description": "Parameter start",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "tb",
+                        "in": "path",
+                        "description": "Parameter tb",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "weekday",
+                        "in": "path",
+                        "description": "Parameter weekday",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Calendar Weekly Schedule",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesDayScheduleMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/calendar/{cal_id}": {
+            "get": {
+                "description": "Returns a Calendar&#x27;s basic data",
+                "tags": [
+                    "calendar"
+                ],
+                "operationId": "GetCalendarByCalId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "cal_id",
+                        "in": "path",
+                        "description": "Parameter cal_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Calendar Serial Data Structure",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesCalDataMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/free/{cal_id}/start/{start_date}/end/{end_date}": {
+            "get": {
+                "description": "Returns all free timeslots in a time range for the specified calendar",
+                "tags": [
+                    "free"
+                ],
+                "operationId": "GetFreeStartEndByCalIdAndStartDateAndEndDate_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "cal_id",
+                        "in": "path",
+                        "description": "Parameter cal_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "path",
+                        "description": "Parameter end_date",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "start_date",
+                        "in": "path",
+                        "description": "Parameter start_date",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Free items in a range of dates",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesFreeItemsMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/item/{cal_id}/{date}/{time}": {
+            "get": {
+                "description": "Returns either an appointment or a free item timeslot from a calendar",
+                "tags": [
+                    "item"
+                ],
+                "operationId": "GetItemByCalIdAndDateAndTime_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "cal_id",
+                        "in": "path",
+                        "description": "Parameter cal_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "Parameter date",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "time",
+                        "in": "path",
+                        "description": "Parameter time",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item Serial Data Structure",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesItemMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/agenda/{cal_id}/item/{item_id}": {
+            "post": {
+                "description": "Updates an appointment identified by item id",
+                "tags": [
+                    "item"
+                ],
+                "operationId": "PostAgendaItemByCalIdAndItemId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "cal_id",
+                        "in": "path",
+                        "description": "Parameter cal_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "item_id",
+                        "in": "path",
+                        "description": "Parameter item_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item Serial Data Structure",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesItemMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/newitem/{cal_id}/{date}/{time}": {
+            "put": {
+                "description": "Inserts a new appointment",
+                "tags": [
+                    "item"
+                ],
+                "operationId": "PutNewitemByCalIdAndDateAndTime_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "cal_id",
+                        "in": "path",
+                        "description": "Parameter cal_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "Parameter date",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "time",
+                        "in": "path",
+                        "description": "Parameter time",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item Serial Data Structure",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesItemMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/items/ps_id/{ps_id}/start/{start_date}/end/{end_date}": {
+            "get": {
+                "description": "Returns all PS&#x27;s appointments in a range of dates",
+                "tags": [
+                    "items_ps_daterange"
+                ],
+                "operationId": "GetItemsPsIdStartEndByPsIdAndStartDateAndEndDate_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "path",
+                        "description": "Parameter end_date",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "ps_id",
+                        "in": "path",
+                        "description": "Parameter ps_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "start_date",
+                        "in": "path",
+                        "description": "Parameter start_date",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesAppCollectionMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/patient/{patient_id}": {
+            "get": {
+                "description": "Returns the Patient&#x27;s basic data",
                 "tags": [
                     "patient"
                 ],
@@ -801,115 +578,107 @@
                 ],
                 "parameters": [
                     {
-                        "name": "alt",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": "json",
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
                         "type": "string",
-                        "description": "Data format for the response. (Acceptable values are: \"json\")"
-                    },
-                    {
-                        "name": "fields",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Selector specifying which fields to include in a partial response."
-                    },
-                    {
-                        "name": "key",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
-                    },
-                    {
-                        "name": "oauth_token",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "OAuth 2.0 token for the current user."
-                    },
-                    {
-                        "name": "prettyPrint",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": true,
-                        "type": "boolean",
-                        "description": "Returns response with indentations and line breaks."
-                    },
-                    {
-                        "name": "quotaUser",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
-                    },
-                    {
-                        "name": "userIp",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                        "x-is-map": false
                     },
                     {
                         "name": "patient_id",
                         "in": "path",
+                        "description": "Parameter patient_id",
                         "required": true,
-                        "x-is-map": false,
-                        "type": "string"
+                        "type": "string",
+                        "x-is-map": false
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": null,
+                        "description": "",
                         "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                            "$ref": "#/definitions/InOutMessagesPatientOutDataMessage"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
-            }
-        },
-        "/_ah/api/mydoc/v0.2.2_RC/patient/all": {
-            "get": {
-                "description": "Exposes an API endpoint to obtain a list of Patients",
+                }
+            },
+            "patch": {
+                "description": "Updates a Patient&#x27;s data . This method supports patch semantics.",
                 "tags": [
                     "patient"
                 ],
-                "operationId": "GetallPatientAll_",
+                "operationId": "PatchPatientByPatientId_",
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "description": "Parameter patient_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": null,
+                        "description": "",
                         "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientCollection"
+                            "$ref": "#/definitions/InOutMessagesPatientOutDataMessage"
                         }
                     }
-                },
-                "security": [
+                }
+            },
+            "update": {
+                "description": "Updates a Patient&#x27;s data",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "UpdatePatientByPatientId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
                     {
-                        "auth": []
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "description": "Parameter patient_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
                     }
-                ]
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesPatientOutDataMessage"
+                        }
+                    }
+                }
             }
         },
-        "/_ah/api/mydoc/v0.2.2_RC/patient/new": {
-            "post": {
-                "description": "Exposes an API endpoint to add a new Patient",
+        "/patient/new": {
+            "insert": {
+                "description": "Adds a new Patient",
                 "tags": [
                     "patient"
                 ],
@@ -919,582 +688,303 @@
                 ],
                 "parameters": [
                     {
-                        "name": "body",
-                        "in": "body",
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
                         "required": true,
-                        "x-is-map": false,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientRequestMessage"
-                        }
+                        "type": "string",
+                        "x-is-map": false
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": null,
+                        "description": "",
                         "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                            "$ref": "#/definitions/InOutMessagesPatientOutDataMessage"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
+                }
             }
         },
-        "/_ah/api/mydoc/v0.2.2_RC/patient/insert/secondary": {
-            "post": {
-                "description": "Exposes an API endpoint to add a secondary patient to a existing primary patient",
+        "/patient/{patient_id}/hciplan/{hciplan_id}/hciplan_nr/{hciplan_nr}": {
+            "add": {
+                "description": "Adds a HCI Plan to a Patient",
                 "tags": [
-                    "patient"
+                    "patient_plan"
                 ],
-                "operationId": "InsertSecondaryPatientInsertSecondary_",
+                "operationId": "AddPatientHciplanHciplanNrByPatientIdAndHciplanIdAndHciplanNr_",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "name": "body",
-                        "in": "body",
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
                         "required": true,
-                        "x-is-map": false,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientRequestMessage"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": null,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
-            }
-        },
-        "/_ah/api/mydoc/v0.2.2_RC/patient/{patient_primary_id}/link/{patient_secondary_id}": {
-            "post": {
-                "description": "Exposes an API endpoint to link an existing secondary patient to an existing primary patient",
-                "tags": [
-                    "patient"
-                ],
-                "operationId": "Create_LinkSecondaryPatientLinkByPatientPrimaryId_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "alt",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": "json",
                         "type": "string",
-                        "description": "Data format for the response. (Acceptable values are: \"json\")"
-                    },
-                    {
-                        "name": "fields",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Selector specifying which fields to include in a partial response."
-                    },
-                    {
-                        "name": "key",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
-                    },
-                    {
-                        "name": "oauth_token",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "OAuth 2.0 token for the current user."
-                    },
-                    {
-                        "name": "prettyPrint",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": true,
-                        "type": "boolean",
-                        "description": "Returns response with indentations and line breaks."
-                    },
-                    {
-                        "name": "quotaUser",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
-                    },
-                    {
-                        "name": "userIp",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
-                    },
-                    {
-                        "name": "patient_primary_id",
-                        "in": "path",
-                        "required": true,
-                        "x-is-map": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "patient_secondary_id",
-                        "in": "path",
-                        "required": true,
-                        "x-is-map": false,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": null,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientCollection"
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
-            }
-        },
-        "/_ah/api/mydoc/v0.2.2_RC/patient/update/{patient_id}": {
-            "put": {
-                "description": "Exposes an API endpoint to modify a Patient",
-                "tags": [
-                    "patient"
-                ],
-                "operationId": "UpdatePatientUpdateByPatientId_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "alt",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": "json",
-                        "type": "string",
-                        "description": "Data format for the response. (Acceptable values are: \"json\")"
-                    },
-                    {
-                        "name": "fields",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Selector specifying which fields to include in a partial response."
-                    },
-                    {
-                        "name": "key",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
-                    },
-                    {
-                        "name": "oauth_token",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "OAuth 2.0 token for the current user."
-                    },
-                    {
-                        "name": "prettyPrint",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": true,
-                        "type": "boolean",
-                        "description": "Returns response with indentations and line breaks."
-                    },
-                    {
-                        "name": "quotaUser",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
-                    },
-                    {
-                        "name": "userIp",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
-                    },
-                    {
-                        "name": "patient_id",
-                        "in": "path",
-                        "required": true,
-                        "x-is-map": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "x-is-map": false,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientRequestMessage"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": null,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
-            },
-            "patch": {
-                "description": "Exposes an API endpoint to modify a Patient . This method supports patch semantics.",
-                "tags": [
-                    "patient"
-                ],
-                "operationId": "PatchPatientUpdateByPatientId_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "alt",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": "json",
-                        "type": "string",
-                        "description": "Data format for the response. (Acceptable values are: \"json\")"
-                    },
-                    {
-                        "name": "fields",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Selector specifying which fields to include in a partial response."
-                    },
-                    {
-                        "name": "key",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
-                    },
-                    {
-                        "name": "oauth_token",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "OAuth 2.0 token for the current user."
-                    },
-                    {
-                        "name": "prettyPrint",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": true,
-                        "type": "boolean",
-                        "description": "Returns response with indentations and line breaks."
-                    },
-                    {
-                        "name": "quotaUser",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
-                    },
-                    {
-                        "name": "userIp",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
-                    },
-                    {
-                        "name": "patient_id",
-                        "in": "path",
-                        "required": true,
-                        "x-is-map": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "x-is-map": false,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientRequestMessage"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": null,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
-            }
-        },
-        "/_ah/api/mydoc/v0.2.2_RC/patient/{patient_id}/rm_hcp_favorite/{hcp_id}": {
-            "delete": {
-                "description": "Exposes an API endpoint to remove a favorite hcp from a Patient",
-                "tags": [
-                    "patient"
-                ],
-                "operationId": "Delete_RmHcpFavoritePatientRmHcpFavoriteByPatientIdAndHcpId_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "alt",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": "json",
-                        "type": "string",
-                        "description": "Data format for the response. (Acceptable values are: \"json\")"
-                    },
-                    {
-                        "name": "fields",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Selector specifying which fields to include in a partial response."
-                    },
-                    {
-                        "name": "key",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
-                    },
-                    {
-                        "name": "oauth_token",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "OAuth 2.0 token for the current user."
-                    },
-                    {
-                        "name": "prettyPrint",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": true,
-                        "type": "boolean",
-                        "description": "Returns response with indentations and line breaks."
-                    },
-                    {
-                        "name": "quotaUser",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
-                    },
-                    {
-                        "name": "userIp",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
-                    },
-                    {
-                        "name": "hcp_id",
-                        "in": "path",
-                        "required": true,
-                        "x-is-map": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "patient_id",
-                        "in": "path",
-                        "required": true,
-                        "x-is-map": false,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": null,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
-            }
-        },
-        "/_ah/api/mydoc/v0.2.2_RC/patient/{patient_id}/update_hciplan/{hciplan_id}/hciplan_nr/{hciplan_nr}": {
-            "put": {
-                "description": "Update a HCI Plan of a Patient",
-                "tags": [
-                    "patient"
-                ],
-                "operationId": "UpdateHciplanPatientUpdateHciplanHciplanNrHciplanNr_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "alt",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": "json",
-                        "type": "string",
-                        "description": "Data format for the response. (Acceptable values are: \"json\")"
-                    },
-                    {
-                        "name": "fields",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Selector specifying which fields to include in a partial response."
-                    },
-                    {
-                        "name": "key",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
-                    },
-                    {
-                        "name": "oauth_token",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "OAuth 2.0 token for the current user."
-                    },
-                    {
-                        "name": "prettyPrint",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": true,
-                        "type": "boolean",
-                        "description": "Returns response with indentations and line breaks."
-                    },
-                    {
-                        "name": "quotaUser",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
-                    },
-                    {
-                        "name": "userIp",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                        "x-is-map": false
                     },
                     {
                         "name": "hciplan_id",
                         "in": "path",
+                        "description": "Parameter hciplan_id",
                         "required": true,
-                        "x-is-map": false,
-                        "type": "string"
+                        "type": "string",
+                        "x-is-map": false
                     },
                     {
                         "name": "hciplan_nr",
                         "in": "path",
+                        "description": "Parameter hciplan_nr",
                         "required": true,
-                        "x-is-map": false,
-                        "type": "string"
+                        "type": "string",
+                        "x-is-map": false
                     },
                     {
                         "name": "patient_id",
                         "in": "path",
+                        "description": "Parameter patient_id",
                         "required": true,
-                        "x-is-map": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "x-is-map": false,
-                        "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientHCIPlanRequest"
-                        }
+                        "type": "string",
+                        "x-is-map": false
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": null,
+                        "description": "",
                         "schema": {
-                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                            "$ref": "#/definitions/InOutMessagesPatientOutDataMessage"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
+                }
             }
         },
-        "/_ah/api/mydoc/v0.2.2_RC/agenda/{cal_id}/{date}": {
+        "/patient_plan/{hciplan_id}": {
+            "update": {
+                "description": "Updates a Patient&#x27;s HCI Plan",
+                "tags": [
+                    "patient_plan"
+                ],
+                "operationId": "UpdatePatientPlanByHciplanId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "hciplan_id",
+                        "in": "path",
+                        "description": "Parameter hciplan_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesPatientHCIPlanMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/patient/{patient_id}/secondary": {
+            "insert": {
+                "description": "Adds a secondary Patient to Primary",
+                "tags": [
+                    "patient_secondary"
+                ],
+                "operationId": "InsertPatientSecondaryByPatientId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "description": "Parameter patient_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesPatientOutDataMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/ps/{ps_id}": {
             "get": {
-                "description": "Returns a calendar's workday for this date",
+                "description": "Returns a PS&#x27;s basic data",
+                "tags": [
+                    "ps"
+                ],
+                "operationId": "GetPsByPsId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "ps_id",
+                        "in": "path",
+                        "description": "Parameter ps_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesPsDataMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/ps/{ps_id}/{date}": {
+            "get": {
+                "description": "Returns all appointmens and free slots for a PS on a particular date",
+                "tags": [
+                    "ps_items"
+                ],
+                "operationId": "GetPsByPsIdAndDate_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "Parameter date",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "ps_id",
+                        "in": "path",
+                        "description": "Parameter ps_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Workday Serial Data Structure",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesWorkdayMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/reschedule/{cal_id}/{date}/{time}/{item_id}": {
+            "put": {
+                "description": "Re-schedules an existing appointment to the specified calendar&#x27;s time slot",
+                "tags": [
+                    "reschedule"
+                ],
+                "operationId": "PutRescheduleByCalIdAndDateAndTimeAndItemId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "cal_id",
+                        "in": "path",
+                        "description": "Parameter cal_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "Parameter date",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "item_id",
+                        "in": "path",
+                        "description": "Parameter item_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "time",
+                        "in": "path",
+                        "description": "Parameter time",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item Serial Data Structure",
+                        "schema": {
+                            "$ref": "#/definitions/InOutMessagesItemMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/agenda/{cal_id}/{date}": {
+            "get": {
+                "description": "Returns a calendar&#x27;s workday for this date",
                 "tags": [
                     "workday"
                 ],
@@ -1504,686 +994,475 @@
                 ],
                 "parameters": [
                     {
-                        "name": "alt",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": "json",
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
                         "type": "string",
-                        "description": "Data format for the response. (Acceptable values are: \"json\")"
-                    },
-                    {
-                        "name": "fields",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Selector specifying which fields to include in a partial response."
-                    },
-                    {
-                        "name": "key",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token."
-                    },
-                    {
-                        "name": "oauth_token",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "OAuth 2.0 token for the current user."
-                    },
-                    {
-                        "name": "prettyPrint",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "default": true,
-                        "type": "boolean",
-                        "description": "Returns response with indentations and line breaks."
-                    },
-                    {
-                        "name": "quotaUser",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided."
-                    },
-                    {
-                        "name": "userIp",
-                        "in": "query",
-                        "required": false,
-                        "x-is-map": false,
-                        "type": "string",
-                        "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits."
+                        "x-is-map": false
                     },
                     {
                         "name": "cal_id",
                         "in": "path",
+                        "description": "Parameter cal_id",
                         "required": true,
-                        "x-is-map": false,
-                        "type": "string"
+                        "type": "string",
+                        "x-is-map": false
                     },
                     {
                         "name": "date",
                         "in": "path",
+                        "description": "Parameter date",
                         "required": true,
-                        "x-is-map": false,
-                        "type": "string"
+                        "type": "string",
+                        "x-is-map": false
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": null,
+                        "description": "Workday Serial Data Structure",
                         "schema": {
-                            "$ref": "#/definitions/ApiMydocMydocMessagesAppointmentCollection"
+                            "$ref": "#/definitions/InOutMessagesWorkdayMessage"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "auth": []
-                    }
-                ]
+                }
             }
         }
     },
     "definitions": {
-        "ApiMydocHcpMessagesHcpAssociationResponseMessage": {
-            "title": "ApiMydocHcpMessagesHcpAssociationResponseMessage",
+        "InOutMessagesAppCollectionMessage": {
             "type": "object",
             "properties": {
-                "hcp_type": {
-                    "$ref": "#/definitions/ApiMydocHcpMessagesHcpTypeResponseMessage"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "state": {
-                    "$ref": "#/definitions/ApiMydocMydocMessagesStateResponseMessage"
-                }
-            }
-        },
-        "ApiMydocHcpMessagesHcpTypeResponseMessage": {
-            "title": "ApiMydocHcpMessagesHcpTypeResponseMessage",
-            "type": "object",
-            "properties": {
-                "description": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
-        "ApiMydocMydocMessagesStateResponseMessage": {
-            "title": "ApiMydocMydocMessagesStateResponseMessage",
-            "type": "object",
-            "properties": {
-                "abbreviation": {
-                    "type": "string"
-                },
-                "country": {
-                    "$ref": "#/definitions/ApiMydocMydocMessagesCountryResponseMessage"
-                },
-                "id": {
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
-        "ApiMydocMydocMessagesCountryResponseMessage": {
-            "title": "ApiMydocMydocMessagesCountryResponseMessage",
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "international_code": {
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
-        "ApiMydocHcpMessagesHcpRequestMessage": {
-            "title": "ApiMydocHcpMessagesHcpRequestMessage",
-            "type": "object",
-            "properties": {
-                "address_line_1": {
-                    "type": "string"
-                },
-                "address_line_2": {
-                    "type": "string"
-                },
-                "association_id": {
-                    "type": "string"
-                },
-                "birthdate": {
-                    "type": "string"
-                },
-                "city_id": {
-                    "type": "string"
-                },
-                "document_type_id": {
-                    "type": "string"
-                },
-                "first_name": {
-                    "type": "string"
-                },
-                "gender": {
-                    "type": "string"
-                },
-                "hcp_specialty": {
+                "appointments": {
+                    "description": "Appointment url",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/ApiMydocHcpMessagesHcpSpecialtyRequestMessage"
-                    }
-                },
-                "home_page": {
-                    "type": "string"
-                },
-                "id_doc_number": {
-                    "type": "string"
-                },
-                "last_name": {
-                    "type": "string"
-                },
-                "license_nr": {
-                    "type": "string"
-                },
-                "linkedin_profile": {
-                    "type": "string"
-                },
-                "postcode": {
-                    "type": "string"
-                }
-            }
-        },
-        "ApiMydocHcpMessagesHcpSpecialtyRequestMessage": {
-            "title": "ApiMydocHcpMessagesHcpSpecialtyRequestMessage",
-            "type": "object",
-            "properties": {
-                "hcp_specialty_id": {
-                    "type": "string"
-                }
-            }
-        },
-        "ApiMydocHcpMessagesHcpResponseMessage": {
-            "title": "ApiMydocHcpMessagesHcpResponseMessage",
-            "type": "object",
-            "properties": {
-                "address_line_1": {
-                    "type": "string"
-                },
-                "address_line_2": {
-                    "type": "string"
-                },
-                "association": {
-                    "$ref": "#/definitions/ApiMydocHcpMessagesHcpAssociationResponseMessage"
-                },
-                "birthdate": {
-                    "type": "string"
-                },
-                "city": {
-                    "$ref": "#/definitions/ApiMydocMydocMessagesCityResponseMessage"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "first_name": {
-                    "type": "string"
-                },
-                "gender": {
-                    "type": "string"
-                },
-                "hcp_specialty": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/ApiMydocHcpMessagesHcpSpecialtyResponseMessage"
-                    }
-                },
-                "home_page": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "id_doc_number": {
-                    "type": "string"
-                },
-                "last_name": {
-                    "type": "string"
-                },
-                "license_nr": {
-                    "type": "string"
-                },
-                "linkedin_profile": {
-                    "type": "string"
-                },
-                "postcode": {
-                    "type": "string"
-                }
-            }
-        },
-        "ApiMydocMydocMessagesCityResponseMessage": {
-            "title": "ApiMydocMydocMessagesCityResponseMessage",
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "state": {
-                    "$ref": "#/definitions/ApiMydocMydocMessagesStateResponseMessage"
-                }
-            }
-        },
-        "ApiMydocHcpMessagesHcpSpecialtyResponseMessage": {
-            "title": "ApiMydocHcpMessagesHcpSpecialtyResponseMessage",
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
-        "ApiMydocHcpMessagesHcpResponseMessageCollection": {
-            "title": "ApiMydocHcpMessagesHcpResponseMessageCollection",
-            "type": "object",
-            "properties": {
-                "professionals": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/ApiMydocHcpMessagesHcpResponseMessage"
+                        "$ref": "#/definitions/InOutMessagesAppointmentMessage"
                     }
                 }
             }
         },
-        "ApiMydocHcpMessagesHcpUpdateRequestMessage": {
-            "title": "ApiMydocHcpMessagesHcpUpdateRequestMessage",
+        "InOutMessagesAppointmentMessage": {
+            "description": "Appointment url",
             "type": "object",
             "properties": {
-                "address_line_1": {
+                "date": {
                     "type": "string"
                 },
-                "address_line_2": {
+                "la_name": {
                     "type": "string"
                 },
-                "association_id": {
+                "link": {
                     "type": "string"
                 },
-                "birthdate": {
+                "time": {
+                    "type": "string"
+                }
+            }
+        },
+        "InOutMessagesCalDataMessage": {
+            "description": "Calendar Serial Data Structure",
+            "type": "object",
+            "properties": {
+                "cal_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "la_address": {
                     "type": "string"
                 },
-                "city_id": {
+                "la_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "la_name": {
                     "type": "string"
                 },
-                "document_type_id": {
+                "ps_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "ps_name": {
                     "type": "string"
                 },
-                "email": {
+                "ps_specialty": {
+                    "type": "string"
+                }
+            }
+        },
+        "InOutMessagesDayScheduleMessage": {
+            "description": "Calendar Weekly Schedule",
+            "type": "object",
+            "properties": {
+                "day_of_week": {
                     "type": "string"
                 },
-                "first_name": {
-                    "type": "string"
-                },
-                "gender": {
-                    "type": "string"
-                },
-                "hcp_specialty": {
+                "timeslots": {
+                    "description": "Dayly Schedule - hh:mm:ss - minutes",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/ApiMydocHcpMessagesHcpSpecialtyRequestMessage"
+                        "$ref": "#/definitions/InOutMessagesTimeslotMessage"
                     }
                 },
-                "home_page": {
-                    "type": "string"
-                },
-                "id_doc_number": {
-                    "type": "string"
-                },
-                "last_name": {
-                    "type": "string"
-                },
-                "license_nr": {
-                    "type": "string"
-                },
-                "linkedin_profile": {
-                    "type": "string"
-                },
-                "postcode": {
-                    "type": "string"
+                "weekday": {
+                    "type": "string",
+                    "format": "int64"
                 }
             }
         },
-        "ApiMydocMydocMessagesAppointmentCollection": {
-            "title": "ApiMydocMydocMessagesAppointmentCollection",
+        "InOutMessagesFreeDateMessage": {
+            "description": "Free Items of a certain date",
             "type": "object",
             "properties": {
-                "entries": {
+                "date": {
+                    "type": "string"
+                },
+                "free_list": {
+                    "description": "Free Item Link",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/ApiMydocMydocMessagesAppointmentItem"
+                        "$ref": "#/definitions/InOutMessagesFreeItemLinkMessage"
                     }
                 }
             }
         },
-        "ApiMydocMydocMessagesAppointmentItem": {
-            "title": "ApiMydocMydocMessagesAppointmentItem",
+        "InOutMessagesFreeItemLinkMessage": {
+            "description": "Free Item Link",
             "type": "object",
             "properties": {
-                "item": {
-                    "$ref": "#/definitions/ApiMydocMydocMessagesAppointmentResponseMessage"
+                "link": {
+                    "type": "string"
+                },
+                "time": {
+                    "type": "string"
                 }
             }
         },
-        "ApiMydocMydocMessagesAppointmentResponseMessage": {
-            "title": "ApiMydocMydocMessagesAppointmentResponseMessage",
+        "InOutMessagesFreeItemsMessage": {
+            "description": "Free items in a range of dates",
             "type": "object",
             "properties": {
-                "calendar_id": {
-                    "type": "integer",
-                    "format": "int32"
+                "free": {
+                    "description": "Free Items of a certain date",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InOutMessagesFreeDateMessage"
+                    }
+                }
+            }
+        },
+        "InOutMessagesHCIPlanMessage": {
+            "type": "object",
+            "properties": {
+                "Id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "Name": {
+                    "type": "string"
+                },
+                "Number": {
+                    "type": "string"
+                }
+            }
+        },
+        "InOutMessagesItemMessage": {
+            "description": "Item Serial Data Structure",
+            "type": "object",
+            "properties": {
+                "cal_id": {
+                    "type": "string",
+                    "format": "int64"
                 },
                 "date": {
                     "type": "string"
                 },
-                "hcp_comments": {
+                "desc": {
                     "type": "string"
                 },
-                "id": {
+                "etc": {
                     "type": "string"
                 },
-                "location": {
+                "freebusy": {
                     "type": "string"
                 },
-                "patient_comments": {
+                "item_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "la_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "la_name": {
                     "type": "string"
                 },
-                "patient_fullname": {
+                "name": {
                     "type": "string"
                 },
-                "patient_id": {
+                "ps_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "ps_name": {
                     "type": "string"
                 },
-                "start": {
+                "ps_specialty": {
                     "type": "string"
                 },
                 "status": {
-                    "type": "integer",
-                    "format": "int32"
+                    "type": "string"
+                },
+                "time": {
+                    "type": "string"
                 }
             }
         },
-        "ApiMydocMydocMessagesAppointmentRequestMessage": {
-            "title": "ApiMydocMydocMessagesAppointmentRequestMessage",
+        "InOutMessagesPatientHCIPlanMessage": {
             "type": "object",
             "properties": {
-                "date": {
+                "Id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "Number": {
                     "type": "string"
                 },
-                "hcp_comments": {
+                "Patient_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "Plan_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "Security_Code": {
                     "type": "string"
                 },
-                "patient_comments": {
+                "Valid_Until": {
+                    "type": "string"
+                }
+            }
+        },
+        "InOutMessagesPatientInDataMessage": {
+            "type": "object",
+            "properties": {
+                "Address": {
                     "type": "string"
                 },
-                "patient_id": {
+                "BirthDate": {
                     "type": "string"
                 },
+                "Email": {
+                    "type": "string"
+                },
+                "Etc": {
+                    "type": "string"
+                },
+                "Gender": {
+                    "type": "string"
+                },
+                "HCI_Plan_Sec_Code": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "HCI_Plan_Valid_Until": {
+                    "type": "string"
+                },
+                "HCI_Plan_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "HCI_Plan_nr": {
+                    "type": "string"
+                },
+                "Id_doc_Nr": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "Id_doc_Type": {
+                    "type": "string"
+                },
+                "Name": {
+                    "type": "string"
+                },
+                "Notif_Channel": {
+                    "type": "string"
+                },
+                "Phone_Landline_Nr": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "Phone_Mobile_Nr": {
+                    "type": "string",
+                    "format": "int64"
+                }
+            }
+        },
+        "InOutMessagesPatientOutDataMessage": {
+            "type": "object",
+            "properties": {
+                "Address": {
+                    "type": "string"
+                },
+                "BirthDate": {
+                    "type": "string"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "Etc": {
+                    "type": "string"
+                },
+                "Gender": {
+                    "type": "string"
+                },
+                "HCI_Plans": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InOutMessagesHCIPlanMessage"
+                    }
+                },
+                "Id_doc_Nr": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "Id_doc_Type": {
+                    "type": "string"
+                },
+                "Name": {
+                    "type": "string"
+                },
+                "Notif_Channel": {
+                    "type": "string"
+                },
+                "Patient_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "Phone_Landline_Nr": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "Phone_Mobile_Nr": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "Primary_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "SecondaryPatients": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InOutMessagesSecondaryPatientMessage"
+                    }
+                },
+                "Status": {
+                    "type": "string"
+                },
+                "Type": {
+                    "type": "string"
+                }
+            }
+        },
+        "InOutMessagesPsCalMessage": {
+            "type": "object",
+            "properties": {
+                "cal_id": {
+                    "type": "string",
+                    "format": "int64"
+                }
+            }
+        },
+        "InOutMessagesPsDataMessage": {
+            "type": "object",
+            "properties": {
+                "ps_cals": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InOutMessagesPsCalMessage"
+                    }
+                },
+                "ps_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "ps_name": {
+                    "type": "string"
+                },
+                "ps_specialty": {
+                    "type": "string"
+                }
+            }
+        },
+        "InOutMessagesRequestBody": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "InOutMessagesSecondaryPatientMessage": {
+            "type": "object",
+            "properties": {
+                "Id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "Name": {
+                    "type": "string"
+                }
+            }
+        },
+        "InOutMessagesTimeslotMessage": {
+            "description": "Dayly Schedule - hh:mm:ss - minutes",
+            "type": "object",
+            "properties": {
                 "start": {
                     "type": "string"
-                }
-            }
-        },
-        "ApiMydocMydocMessagesUserInfo": {
-            "title": "ApiMydocMydocMessagesUserInfo",
-            "type": "object",
-            "properties": {
-                "email": {
-                    "type": "string"
                 },
-                "first_name": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "is_superuser": {
-                    "type": "boolean"
-                },
-                "last_name": {
-                    "type": "string"
-                },
-                "token": {
-                    "type": "string"
-                },
-                "username": {
-                    "type": "string"
-                }
-            }
-        },
-        "ApiMydocPatientMessagesPatientCollection": {
-            "title": "ApiMydocPatientMessagesPatientCollection",
-            "type": "object",
-            "properties": {
-                "patients": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
-                    }
-                }
-            }
-        },
-        "ApiMydocPatientMessagesPatientResponseMessage": {
-            "title": "ApiMydocPatientMessagesPatientResponseMessage",
-            "type": "object",
-            "properties": {
-                "address_line_1": {
-                    "type": "string"
-                },
-                "address_line_2": {
-                    "type": "string"
-                },
-                "birthdate": {
-                    "type": "string"
-                },
-                "city": {
-                    "$ref": "#/definitions/ApiMydocMydocMessagesCityResponseMessage"
-                },
-                "document_type": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "first_name": {
-                    "type": "string"
-                },
-                "gender": {
-                    "type": "string"
-                },
-                "hci_plans": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientHCIPlanResponse"
-                    }
-                },
-                "hcp_favorites": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientHcpFavoriteResponse"
-                    }
-                },
-                "id": {
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "id_doc_number": {
-                    "type": "string"
-                },
-                "last_name": {
-                    "type": "string"
-                },
-                "primary_patients": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientMessage"
-                    }
-                },
-                "secondary_patients": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientMessage"
-                    }
-                },
-                "type_primary": {
-                    "type": "boolean"
-                }
-            }
-        },
-        "ApiMydocPatientMessagesPatientHCIPlanResponse": {
-            "title": "ApiMydocPatientMessagesPatientHCIPlanResponse",
-            "type": "object",
-            "properties": {
-                "number": {
-                    "type": "string"
-                },
-                "plan": {
-                    "type": "string"
-                },
-                "provider": {
-                    "type": "string"
-                },
-                "security_code": {
-                    "type": "string"
-                },
-                "valid_until": {
-                    "type": "string"
-                }
-            }
-        },
-        "ApiMydocPatientMessagesPatientHcpFavoriteResponse": {
-            "title": "ApiMydocPatientMessagesPatientHcpFavoriteResponse",
-            "type": "object",
-            "properties": {
-                "first_name": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "last_name": {
-                    "type": "string"
-                }
-            }
-        },
-        "ApiMydocPatientMessagesPatientMessage": {
-            "title": "ApiMydocPatientMessagesPatientMessage",
-            "type": "object",
-            "properties": {
-                "first_name": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "last_name": {
-                    "type": "string"
-                }
-            }
-        },
-        "ApiMydocPatientMessagesPatientHCIPlanRequest": {
-            "title": "ApiMydocPatientMessagesPatientHCIPlanRequest",
-            "type": "object",
-            "properties": {
-                "security_code": {
-                    "type": "string"
-                },
-                "valid_until": {
-                    "type": "string"
-                }
-            }
-        },
-        "ApiMydocPatientMessagesPatientRequestMessage": {
-            "title": "ApiMydocPatientMessagesPatientRequestMessage",
-            "type": "object",
-            "properties": {
-                "address_line_1": {
-                    "type": "string"
-                },
-                "address_line_2": {
-                    "type": "string"
-                },
-                "birthdate": {
-                    "type": "string"
-                },
-                "city_id": {
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "document_type_id": {
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "first_name": {
-                    "type": "string"
-                },
-                "gender": {
-                    "type": "string"
-                },
-                "id_doc_number": {
-                    "type": "string"
-                },
-                "last_name": {
-                    "type": "string"
-                },
-                "postcode": {
-                    "type": "string"
-                }
-            }
-        },
-        "ApiMydocHcpMessagesLoginRequestMessage": {
-            "title": "ApiMydocHcpMessagesLoginRequestMessage",
-            "type": "object",
-            "properties": {
-                "username": {
+                "timeblok": {
                     "type": "string",
-                    "required": true,
-                    "description": "User Name (email)"
+                    "format": "int64"
+                }
+            }
+        },
+        "InOutMessagesWeekScheduleMessage": {
+            "type": "object",
+            "properties": {
+                "workdays": {
+                    "description": "Calendar Weekly Schedule",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InOutMessagesDayScheduleMessage"
+                    }
+                }
+            }
+        },
+        "InOutMessagesWorkdayEntry": {
+            "description": "Workday Entry &#x3D; time + item",
+            "type": "object",
+            "properties": {
+                "item": {
+                    "description": "Item Serial Data Structure"
                 },
-                "email": {
-                    "type": "string",
-                    "required": true,
-                    "description": "email"
-                },
-                "password": {
-                    "type": "string",
-                    "required": true,
-                    "description": "User password"
+                "time": {
+                    "type": "string"
+                }
+            }
+        },
+        "InOutMessagesWorkdayMessage": {
+            "description": "Workday Serial Data Structure",
+            "type": "object",
+            "properties": {
+                "entries": {
+                    "description": "Workday Entry &#x3D; time + item",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InOutMessagesWorkdayEntry"
+                    }
                 }
             }
         }
