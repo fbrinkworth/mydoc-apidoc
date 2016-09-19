@@ -2,14 +2,14 @@
     "swagger": "2.0",
     "info": {
         "version": "2.0.0",
-        "title": "MyDoc v0.2.2_RC",
+        "title": "MyDoc v0.3.0_RC",
         "description": "myDoc API using Google Endpoints",
         "license": {
             "name": "Fideicomiso Tiempo y Salud (R)",
             "url": "/"
         }
     },
-    "host": "gsk-mydoc-api-backend.appspot.com",
+    "host": "gsk-mydoc-uat-bup.appspot.com",
     "basePath": "/",
     "securityDefinitions": {
         "api_key": {
@@ -71,7 +71,7 @@
                 }
             }
         },
-        "/agenda/{cal_id}/cancel/{item_id}": {
+        "/_ah/api/mydoc/v0.3.0_RC/agenda/{cal_id}/cancel/{item_id}": {
             "delete": {
                 "description": "Cancels an appointment",
                 "tags": [
@@ -117,7 +117,7 @@
                 }
             }
         },
-        "/appointment/{item_id}": {
+        "/_ah/api/mydoc/v0.3.0_RC/appointment/{item_id}": {
             "get": {
                 "description": "Returns the appointment specified by its id",
                 "tags": [
@@ -155,7 +155,7 @@
                 }
             }
         },
-        "/cal_schedule/{cal_id}/weekday/{weekday}": {
+        "/_ah/api/mydoc/v0.3.0_RC/cal_schedule/{cal_id}/weekday/{weekday}": {
             "get": {
                 "description": "Returns a Calendar Schedule for a Weekday (Monday &#x3D;&#x3D; 0)",
                 "tags": [
@@ -201,7 +201,7 @@
                 }
             }
         },
-        "/cal_schedule/{cal_id}": {
+        "/_ah/api/mydoc/v0.3.0_RC/cal_schedule/{cal_id}": {
             "get": {
                 "description": "Returns a Calendar Week Schedule",
                 "tags": [
@@ -239,7 +239,7 @@
                 }
             }
         },
-        "/cal_schedule/{cal_id}/{weekday}/{start}/{end}/{tb}": {
+        "/_ah/api/mydoc/v0.3.0_RC/cal_schedule/{cal_id}/{weekday}/{start}/{end}/{tb}": {
             "put": {
                 "description": "Creates or updates a weekday entry of the Calendar Week Schedule (Monday &#x3D;&#x3D; 0)",
                 "tags": [
@@ -309,7 +309,7 @@
                 }
             }
         },
-        "/calendar/{cal_id}": {
+        "/_ah/api/mydoc/v0.3.0_RC/calendar/{cal_id}": {
             "get": {
                 "description": "Returns a Calendar&#x27;s basic data",
                 "tags": [
@@ -347,7 +347,7 @@
                 }
             }
         },
-        "/free/{cal_id}/start/{start_date}/end/{end_date}": {
+        "/_ah/api/mydoc/v0.3.0_RC/free/{cal_id}/start/{start_date}/end/{end_date}": {
             "get": {
                 "description": "Returns all free timeslots in a time range for the specified calendar",
                 "tags": [
@@ -401,7 +401,7 @@
                 }
             }
         },
-        "/item/{cal_id}/{date}/{time}": {
+        "/_ah/api/mydoc/v0.3.0_RC/item/{cal_id}/{date}/{time}": {
             "get": {
                 "description": "Returns either an appointment or a free item timeslot from a calendar",
                 "tags": [
@@ -455,7 +455,7 @@
                 }
             }
         },
-        "/agenda/{cal_id}/item/{item_id}": {
+        "/_ah/api/mydoc/v0.3.0_RC/agenda/{cal_id}/item/{item_id}": {
             "post": {
                 "description": "Updates an appointment identified by item id",
                 "tags": [
@@ -501,7 +501,7 @@
                 }
             }
         },
-        "/newitem/{cal_id}/{date}/{time}": {
+        "/_ah/api/mydoc/v0.3.0_RC/newitem/{cal_id}/{date}/{time}": {
             "put": {
                 "description": "Inserts a new appointment",
                 "tags": [
@@ -555,7 +555,7 @@
                 }
             }
         },
-        "/items/ps_id/{ps_id}/start/{start_date}/end/{end_date}": {
+        "/_ah/api/mydoc/v0.3.0_RC/items/ps_id/{ps_id}/start/{start_date}/end/{end_date}": {
             "get": {
                 "description": "Returns all PS&#x27;s appointments in a range of dates",
                 "tags": [
@@ -609,7 +609,7 @@
                 }
             }
         },
-        "/patient/{patient_id}": {
+        "/_ah/api/mydoc/v0.3.0_RC/patient/{patient_id}": {
             "get": {
                 "description": "Returns the Patient&#x27;s basic data",
                 "tags": [
@@ -719,7 +719,7 @@
                 }
             }
         },
-        "/patient/new": {
+        "/_ah/api/mydoc/v0.3.0_RC/patient/new": {
             "post": {
                 "description": "Adds a new Patient",
                 "tags": [
@@ -749,7 +749,7 @@
                 }
             }
         },
-        "/patient/{patient_id}/hciplan/{hciplan_id}/hciplan_nr/{hciplan_nr}": {
+        "/_ah/api/mydoc/v0.3.0_RC/patient/{patient_id}/hciplan/{hciplan_id}/hciplan_nr/{hciplan_nr}": {
             "post": {
                 "description": "Adds a HCI Plan to a Patient",
                 "tags": [
@@ -803,7 +803,7 @@
                 }
             }
         },
-        "/patient_plan/{hciplan_id}": {
+        "/_ah/api/mydoc/v0.3.0_RC/patient_plan/{hciplan_id}": {
             "put": {
                 "description": "Updates a Patient&#x27;s HCI Plan",
                 "tags": [
@@ -841,7 +841,7 @@
                 }
             }
         },
-        "/patient/{patient_id}/secondary": {
+        "/_ah/api/mydoc/v0.3.0_RC/patient/{patient_id}/secondary": {
             "post": {
                 "description": "Adds a secondary Patient to Primary",
                 "tags": [
@@ -879,7 +879,7 @@
                 }
             }
         },
-        "/ps/{ps_id}": {
+        "/_ah/api/mydoc/v0.3.0_RC/ps/{ps_id}": {
             "get": {
                 "description": "Returns a PS&#x27;s basic data",
                 "tags": [
@@ -917,7 +917,7 @@
                 }
             }
         },
-        "/ps/{ps_id}/{date}": {
+        "/_ah/api/mydoc/v0.3.0_RC/ps/{ps_id}/{date}": {
             "get": {
                 "description": "Returns all appointmens and free slots for a PS on a particular date",
                 "tags": [
@@ -963,7 +963,7 @@
                 }
             }
         },
-        "/reschedule/{cal_id}/{date}/{time}/{item_id}": {
+        "/_ah/api/mydoc/v0.3.0_RC/reschedule/{cal_id}/{date}/{time}/{item_id}": {
             "put": {
                 "description": "Re-schedules an existing appointment to the specified calendar&#x27;s time slot",
                 "tags": [
@@ -1025,7 +1025,7 @@
                 }
             }
         },
-        "/agenda/{cal_id}/{date}": {
+        "/_ah/api/mydoc/v0.3.0_RC/agenda/{cal_id}/{date}": {
             "get": {
                 "description": "Returns a calendar&#x27;s workday for this date",
                 "tags": [
