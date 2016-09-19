@@ -28,6 +28,49 @@
         "application/json"
     ],
     "paths": {
+        "/auth/login/": {
+            "post": {
+                "description": "Check the credentials and return the REST Token\nif the credentials are valid and authenticated.\nCalls Django Auth login method to register User ID\nin Django session framework\n\nAccept the following POST parameters: username, password\nReturn the REST Framework Token Object's key.,",
+                "tags": [
+                    "auth"
+                ],
+                "operationId": "Login_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": "User Name (email)"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": "email"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "type": "string",
+                        "required": true,
+                        "description": "User password"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/OutMessageLoginResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
         "/agenda/{cal_id}/cancel/{item_id}": {
             "delete": {
                 "description": "Cancels an appointment",
@@ -114,7 +157,7 @@
         },
         "/cal_schedule/{cal_id}/weekday/{weekday}": {
             "get": {
-                "description": "Returns a Calendar Schedule for a Weekday (Monday 0)",
+                "description": "Returns a Calendar Schedule for a Weekday (Monday &#x3D;&#x3D; 0)",
                 "tags": [
                     "cal_day_schedule"
                 ],
@@ -198,7 +241,7 @@
         },
         "/cal_schedule/{cal_id}/{weekday}/{start}/{end}/{tb}": {
             "put": {
-                "description": "Creates or updates a weekday entry of the Calendar Week Schedule (Monday 0)",
+                "description": "Creates or updates a weekday entry of the Calendar Week Schedule (Monday &#x3D;&#x3D; 0)",
                 "tags": [
                     "cal_schedule"
                 ],
@@ -268,7 +311,7 @@
         },
         "/calendar/{cal_id}": {
             "get": {
-                "description": "Returns a Calendars basic data",
+                "description": "Returns a Calendar&#x27;s basic data",
                 "tags": [
                     "calendar"
                 ],
@@ -514,7 +557,7 @@
         },
         "/items/ps_id/{ps_id}/start/{start_date}/end/{end_date}": {
             "get": {
-                "description": "Returns all PSs appointments in a range of dates",
+                "description": "Returns all PS&#x27;s appointments in a range of dates",
                 "tags": [
                     "items_ps_daterange"
                 ],
@@ -568,7 +611,7 @@
         },
         "/patient/{patient_id}": {
             "get": {
-                "description": "Returns the Patients basic data",
+                "description": "Returns the Patient&#x27;s basic data",
                 "tags": [
                     "patient"
                 ],
@@ -604,7 +647,7 @@
                 }
             },
             "patch": {
-                "description": "Updates a Patients data . This method supports patch semantics.",
+                "description": "Updates a Patient&#x27;s data . This method supports patch semantics.",
                 "tags": [
                     "patient"
                 ],
@@ -639,8 +682,8 @@
                     }
                 }
             },
-            "update": {
-                "description": "Updates a Patients data",
+            "put": {
+                "description": "Updates a Patient&#x27;s data",
                 "tags": [
                     "patient"
                 ],
@@ -677,7 +720,7 @@
             }
         },
         "/patient/new": {
-            "insert": {
+            "post": {
                 "description": "Adds a new Patient",
                 "tags": [
                     "patient"
@@ -707,7 +750,7 @@
             }
         },
         "/patient/{patient_id}/hciplan/{hciplan_id}/hciplan_nr/{hciplan_nr}": {
-            "add": {
+            "post": {
                 "description": "Adds a HCI Plan to a Patient",
                 "tags": [
                     "patient_plan"
@@ -761,8 +804,8 @@
             }
         },
         "/patient_plan/{hciplan_id}": {
-            "update": {
-                "description": "Updates a Patients HCI Plan",
+            "put": {
+                "description": "Updates a Patient&#x27;s HCI Plan",
                 "tags": [
                     "patient_plan"
                 ],
@@ -799,7 +842,7 @@
             }
         },
         "/patient/{patient_id}/secondary": {
-            "insert": {
+            "post": {
                 "description": "Adds a secondary Patient to Primary",
                 "tags": [
                     "patient_secondary"
@@ -838,7 +881,7 @@
         },
         "/ps/{ps_id}": {
             "get": {
-                "description": "Returns a PSs basic data",
+                "description": "Returns a PS&#x27;s basic data",
                 "tags": [
                     "ps"
                 ],
@@ -922,7 +965,7 @@
         },
         "/reschedule/{cal_id}/{date}/{time}/{item_id}": {
             "put": {
-                "description": "Re-schedules an existing appointment to the specified calendars time slot",
+                "description": "Re-schedules an existing appointment to the specified calendar&#x27;s time slot",
                 "tags": [
                     "reschedule"
                 ],
@@ -984,7 +1027,7 @@
         },
         "/agenda/{cal_id}/{date}": {
             "get": {
-                "description": "Returns a calendars workday for this date",
+                "description": "Returns a calendar&#x27;s workday for this date",
                 "tags": [
                     "workday"
                 ],
@@ -1030,6 +1073,31 @@
         }
     },
     "definitions": {
+        "OutMessageLoginResponseMessage": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "object",
+                    "properties": {
+                        "username": {
+                            "type": "string"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "first_name": {
+                            "type": "string"
+                        },
+                        "last_name": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "InOutMessagesAppCollectionMessage": {
             "type": "object",
             "properties": {
@@ -1442,7 +1510,7 @@
             }
         },
         "InOutMessagesWorkdayEntry": {
-            "description": "Workday Entry: time + item",
+            "description": "Workday Entry &#x3D; time + item",
             "type": "object",
             "properties": {
                 "item": {
@@ -1458,7 +1526,7 @@
             "type": "object",
             "properties": {
                 "entries": {
-                    "description": "Workday Entry: time + item",
+                    "description": "Workday Entry &#x3D; time + item",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/InOutMessagesWorkdayEntry"
