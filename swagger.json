@@ -89,6 +89,15 @@
                         "required": true,
                         "type": "string",
                         "x-is-map": false
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocCalendarMessagesNewAppMessage"
+                        }
                     }
                 ],
                 "responses": {
@@ -581,6 +590,15 @@
                         "required": true,
                         "type": "boolean",
                         "x-is-map": false
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocCalendarMessagesHcLocationMessage"
+                        }
                     }
                 ],
                 "responses": {
@@ -883,6 +901,15 @@
                         "required": true,
                         "type": "string",
                         "x-is-map": false
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpRequestMessage"
+                        }
                     }
                 ],
                 "responses": {
@@ -959,6 +986,15 @@
                         "required": true,
                         "type": "string",
                         "x-is-map": false
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpUpdateRequestMessage"
+                        }
                     }
                 ],
                 "responses": {
@@ -1081,6 +1117,15 @@
                         "required": true,
                         "type": "string",
                         "x-is-map": false
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientHCIPlanRequest"
+                        }
                     }
                 ],
                 "responses": {
@@ -1195,6 +1240,15 @@
                         "required": true,
                         "type": "string",
                         "x-is-map": false
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientRequestMessage"
+                        }
                     }
                 ],
                 "responses": {
@@ -1225,6 +1279,15 @@
                         "required": true,
                         "type": "string",
                         "x-is-map": false
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientRequestMessage"
+                        }
                     }
                 ],
                 "responses": {
@@ -1377,6 +1440,15 @@
                         "required": true,
                         "type": "string",
                         "x-is-map": false
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientRequestMessage"
+                        }
                     }
                 ],
                 "responses": {
@@ -1413,6 +1485,15 @@
                         "required": true,
                         "type": "string",
                         "x-is-map": false
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientRequestMessage"
+                        }
                     }
                 ],
                 "responses": {
@@ -1513,6 +1594,15 @@
                         "required": true,
                         "type": "string",
                         "x-is-map": false
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "x-is-map": false,
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientHCIPlanRequest"
+                        }
                     }
                 ],
                 "responses": {
