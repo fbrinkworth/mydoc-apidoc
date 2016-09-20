@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "version": "2.0.0",
+        "version": "0.3.0_RC",
         "title": "MyDoc v0.3.0_RC",
         "description": "myDoc API using Google Endpoints",
         "license": {
@@ -71,13 +71,13 @@
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/agenda/{cal_id}/cancel/{item_id}": {
-            "delete": {
-                "description": "Cancels an appointment",
+        "/_ah/api/mydoc/v0.3.0_RC/new_appointment": {
+            "put": {
+                "description": "Inserts a new appointment",
                 "tags": [
                     "appointment"
                 ],
-                "operationId": "DeleteAgendaCancelByCalIdAndItemId_",
+                "operationId": "PutNewAppointment_",
                 "produces": [
                     "application/json"
                 ],
@@ -89,41 +89,25 @@
                         "required": true,
                         "type": "string",
                         "x-is-map": false
-                    },
-                    {
-                        "name": "cal_id",
-                        "in": "path",
-                        "description": "Parameter cal_id",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    },
-                    {
-                        "name": "item_id",
-                        "in": "path",
-                        "description": "Parameter item_id",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Item Serial Data Structure",
+                        "description": "Appointment",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesItemMessage"
+                            "$ref": "#/definitions/ApiMydocCalendarMessagesAppointmentMessage"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/appointment/{item_id}": {
+        "/_ah/api/mydoc/v0.3.0_RC/auth/getuser": {
             "get": {
-                "description": "Returns the appointment specified by its id",
+                "description": "Exposes an API endpoint to obtain user data",
                 "tags": [
-                    "appointment"
+                    "auth"
                 ],
-                "operationId": "GetAppointmentByItemId_",
+                "operationId": "GetuserAuthGetuser_",
                 "produces": [
                     "application/json"
                 ],
@@ -135,21 +119,13 @@
                         "required": true,
                         "type": "string",
                         "x-is-map": false
-                    },
-                    {
-                        "name": "item_id",
-                        "in": "path",
-                        "description": "Parameter item_id",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Item Serial Data Structure",
+                        "description": "",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesItemMessage"
+                            "$ref": "#/definitions/ApiMydocMydocMessagesUserInfo"
                         }
                     }
                 }
@@ -157,7 +133,7 @@
         },
         "/_ah/api/mydoc/v0.3.0_RC/cal_schedule/{cal_id}/weekday/{weekday}": {
             "get": {
-                "description": "Returns a Calendar Schedule for a Weekday (Monday &#x3D;&#x3D; 0)",
+                "description": "Returns a Calendar Weekday Schedule (Sunday &#x3D;&#x3D; 0)",
                 "tags": [
                     "cal_day_schedule"
                 ],
@@ -195,7 +171,223 @@
                     "200": {
                         "description": "Calendar Weekly Schedule",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesDayScheduleMessage"
+                            "$ref": "#/definitions/ApiMydocCalendarMessagesDayScheduleMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/cal_schedule/{cal_id}/remove_except/{date}": {
+            "delete": {
+                "description": "Deletes an exception date entry to the Calendar Week Schedule",
+                "tags": [
+                    "cal_excpt_schedule"
+                ],
+                "operationId": "DeleteCalScheduleRemoveExceptByCalIdAndDate_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "cal_id",
+                        "in": "path",
+                        "description": "Parameter cal_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "Parameter date",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocCalendarMessagesResponseBody"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/cal_schedule/{cal_id}/exception/{date}": {
+            "get": {
+                "description": "Returns a Calendar&#x27;s Exception Date Schedule",
+                "tags": [
+                    "cal_excpt_schedule"
+                ],
+                "operationId": "GetCalScheduleExceptionByCalIdAndDate_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "cal_id",
+                        "in": "path",
+                        "description": "Parameter cal_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "Parameter date",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Calendar Exception Date Schedule",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocCalendarMessagesExcptDateScheduleMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/cal_schedule/{cal_id}/exception/{date}/{start}/{end}/{tb}/add/{add_timeslots}": {
+            "put": {
+                "description": "Creates or updates an exception date entry to the Calendar Week Schedule",
+                "tags": [
+                    "cal_excpt_schedule"
+                ],
+                "operationId": "PutCalScheduleExceptionAddByCalIdAndDateAndStartAndEndAndTbAndAddTimeslots_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "add_timeslots",
+                        "in": "path",
+                        "description": "Parameter add_timeslots",
+                        "required": true,
+                        "type": "boolean",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "cal_id",
+                        "in": "path",
+                        "description": "Parameter cal_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "Parameter date",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "end",
+                        "in": "path",
+                        "description": "Parameter end",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "start",
+                        "in": "path",
+                        "description": "Parameter start",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "tb",
+                        "in": "path",
+                        "description": "Parameter tb",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Calendar Exception Date Schedule",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocCalendarMessagesExcptDateScheduleMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/cal_schedule/{cal_id}/remove/{weekday}": {
+            "delete": {
+                "description": "Removes a weekday entry from the Calendar&#x27;s Week Schedule",
+                "tags": [
+                    "cal_schedule"
+                ],
+                "operationId": "DeleteCalScheduleRemoveByCalIdAndWeekday_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "cal_id",
+                        "in": "path",
+                        "description": "Parameter cal_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "weekday",
+                        "in": "path",
+                        "description": "Parameter weekday",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocCalendarMessagesResponseBody"
                         }
                     }
                 }
@@ -233,19 +425,19 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesWeekScheduleMessage"
+                            "$ref": "#/definitions/ApiMydocCalendarMessagesWeekScheduleMessage"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/cal_schedule/{cal_id}/{weekday}/{start}/{end}/{tb}": {
+        "/_ah/api/mydoc/v0.3.0_RC/cal_schedule/{cal_id}/{weekday}/{start}/{end}/{tb}/add/{add_timeslots}": {
             "put": {
-                "description": "Creates or updates a weekday entry of the Calendar Week Schedule (Monday &#x3D;&#x3D; 0)",
+                "description": "Creates or updates a Calendar WeekDay Schedule (Sunday &#x3D;&#x3D; 0)",
                 "tags": [
                     "cal_schedule"
                 ],
-                "operationId": "PutCalScheduleByCalIdAndWeekdayAndStartAndEndAndTb_",
+                "operationId": "PutCalScheduleAddByCalIdAndWeekdayAndStartAndEndAndTbAndAddTimeslots_",
                 "produces": [
                     "application/json"
                 ],
@@ -256,6 +448,14 @@
                         "description": "JWT token authorization",
                         "required": true,
                         "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "add_timeslots",
+                        "in": "path",
+                        "description": "Parameter add_timeslots",
+                        "required": true,
+                        "type": "boolean",
                         "x-is-map": false
                     },
                     {
@@ -303,19 +503,19 @@
                     "200": {
                         "description": "Calendar Weekly Schedule",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesDayScheduleMessage"
+                            "$ref": "#/definitions/ApiMydocCalendarMessagesDayScheduleMessage"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/calendar/{cal_id}": {
-            "get": {
-                "description": "Returns a Calendar&#x27;s basic data",
+        "/_ah/api/mydoc/v0.3.0_RC/calendar/{cal_id}/remove": {
+            "delete": {
+                "description": "Deletes Calendar",
                 "tags": [
                     "calendar"
                 ],
-                "operationId": "GetCalendarByCalId_",
+                "operationId": "DeleteCalendarRemoveByCalId_",
                 "produces": [
                     "application/json"
                 ],
@@ -334,6 +534,52 @@
                         "description": "Parameter cal_id",
                         "required": true,
                         "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocCalendarMessagesResponseBody"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/new_calendar/hcp/{hcp_id}/private_loc/{loc_private}": {
+            "post": {
+                "description": "Create a new calendar for either a public or private location",
+                "tags": [
+                    "calendar"
+                ],
+                "operationId": "PostNewCalendarHcpPrivateLocByHcpIdAndLocPrivate_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "hcp_id",
+                        "in": "path",
+                        "description": "Parameter hcp_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "loc_private",
+                        "in": "path",
+                        "description": "Parameter loc_private",
+                        "required": true,
+                        "type": "boolean",
                         "x-is-map": false
                     }
                 ],
@@ -341,19 +587,19 @@
                     "200": {
                         "description": "Calendar Serial Data Structure",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesCalDataMessage"
+                            "$ref": "#/definitions/ApiMydocCalendarMessagesCalDataMessage"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/free/{cal_id}/start/{start_date}/end/{end_date}": {
+        "/_ah/api/mydoc/v0.3.0_RC/cities/state/{id}": {
             "get": {
-                "description": "Returns all free timeslots in a time range for the specified calendar",
+                "description": "Exposes an API endpoint to obtain a list of get_cities by state",
                 "tags": [
-                    "free"
+                    "cities"
                 ],
-                "operationId": "GetFreeStartEndByCalIdAndStartDateAndEndDate_",
+                "operationId": "GetCitiesStateById_",
                 "produces": [
                     "application/json"
                 ],
@@ -367,25 +613,39 @@
                         "x-is-map": false
                     },
                     {
-                        "name": "cal_id",
+                        "name": "id",
                         "in": "path",
-                        "description": "Parameter cal_id",
+                        "description": "Parameter id",
                         "required": true,
-                        "type": "string",
+                        "type": "integer",
                         "x-is-map": false
-                    },
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocMydocMessagesCityResponseCollection"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/country/list": {
+            "get": {
+                "description": "Exposes an API endpoint to obtain countries",
+                "tags": [
+                    "country"
+                ],
+                "operationId": "ListCountryList_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
                     {
-                        "name": "end_date",
-                        "in": "path",
-                        "description": "Parameter end_date",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    },
-                    {
-                        "name": "start_date",
-                        "in": "path",
-                        "description": "Parameter start_date",
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
                         "required": true,
                         "type": "string",
                         "x-is-map": false
@@ -393,21 +653,21 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Free items in a range of dates",
+                        "description": "",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesFreeItemsMessage"
+                            "$ref": "#/definitions/ApiMydocMydocMessagesCountryResponseCollection"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/item/{cal_id}/{date}/{time}": {
+        "/_ah/api/mydoc/v0.3.0_RC/documenttypes/country/{id}": {
             "get": {
-                "description": "Returns either an appointment or a free item timeslot from a calendar",
+                "description": "Exposes an API endpoint to obtain document types",
                 "tags": [
-                    "item"
+                    "document_type"
                 ],
-                "operationId": "GetItemByCalIdAndDateAndTime_",
+                "operationId": "GetDocumenttypesCountryById_",
                 "produces": [
                     "application/json"
                 ],
@@ -421,25 +681,77 @@
                         "x-is-map": false
                     },
                     {
-                        "name": "cal_id",
+                        "name": "id",
                         "in": "path",
-                        "description": "Parameter cal_id",
+                        "description": "Parameter id",
+                        "required": true,
+                        "type": "integer",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocMydocMessagesDocumentTypeMessageCollection"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/hciplans/hciproviders/{id}": {
+            "get": {
+                "description": "Exposes an API endpoint to obtain hci plans",
+                "tags": [
+                    "hciplans"
+                ],
+                "operationId": "GetHciplansHciprovidersById_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
                         "required": true,
                         "type": "string",
                         "x-is-map": false
                     },
                     {
-                        "name": "date",
+                        "name": "id",
                         "in": "path",
-                        "description": "Parameter date",
+                        "description": "Parameter id",
                         "required": true,
-                        "type": "string",
+                        "type": "integer",
                         "x-is-map": false
-                    },
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocMydocMessagesHCIPlanMessageCollection"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/hciproviders/list": {
+            "get": {
+                "description": "Exposes an API endpoint to obtain states",
+                "tags": [
+                    "hciproviders"
+                ],
+                "operationId": "GetHciprovidersList_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
                     {
-                        "name": "time",
-                        "in": "path",
-                        "description": "Parameter time",
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
                         "required": true,
                         "type": "string",
                         "x-is-map": false
@@ -447,21 +759,119 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Item Serial Data Structure",
+                        "description": "",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesItemMessage"
+                            "$ref": "#/definitions/ApiMydocMydocMessagesHCIProviderResponseCollection"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/agenda/{cal_id}/item/{item_id}": {
+        "/_ah/api/mydoc/v0.3.0_RC/hclocation/list": {
+            "get": {
+                "description": "Exposes an API endpoint to obtain hc locations",
+                "tags": [
+                    "hclocation"
+                ],
+                "operationId": "ListHclocationList_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocMydocMessagesHcLocationCollection"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/hcp/{id}": {
+            "get": {
+                "description": "Exposes an API endpoint to get hcp by id",
+                "tags": [
+                    "hcp"
+                ],
+                "operationId": "GetHcpById_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Parameter id",
+                        "required": true,
+                        "type": "integer",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/hcp.list": {
+            "get": {
+                "description": "Exposes an API endpoint to obtain a list of health care professional",
+                "tags": [
+                    "hcp"
+                ],
+                "operationId": "ListHcp.list_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpPaginationResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/hcp/new": {
             "post": {
-                "description": "Updates an appointment identified by item id",
+                "description": "Exposes an API endpoint to create hcp",
                 "tags": [
-                    "item"
+                    "hcp"
                 ],
-                "operationId": "PostAgendaItemByCalIdAndItemId_",
+                "operationId": "NewHcpNew_",
                 "produces": [
                     "application/json"
                 ],
@@ -473,95 +883,25 @@
                         "required": true,
                         "type": "string",
                         "x-is-map": false
-                    },
-                    {
-                        "name": "cal_id",
-                        "in": "path",
-                        "description": "Parameter cal_id",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    },
-                    {
-                        "name": "item_id",
-                        "in": "path",
-                        "description": "Parameter item_id",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Item Serial Data Structure",
+                        "description": "",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesItemMessage"
+                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpResponseMessage"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/newitem/{cal_id}/{date}/{time}": {
-            "put": {
-                "description": "Inserts a new appointment",
-                "tags": [
-                    "item"
-                ],
-                "operationId": "PutNewitemByCalIdAndDateAndTime_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "authorization",
-                        "in": "header",
-                        "description": "JWT token authorization",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    },
-                    {
-                        "name": "cal_id",
-                        "in": "path",
-                        "description": "Parameter cal_id",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    },
-                    {
-                        "name": "date",
-                        "in": "path",
-                        "description": "Parameter date",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    },
-                    {
-                        "name": "time",
-                        "in": "path",
-                        "description": "Parameter time",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Item Serial Data Structure",
-                        "schema": {
-                            "$ref": "#/definitions/InOutMessagesItemMessage"
-                        }
-                    }
-                }
-            }
-        },
-        "/_ah/api/mydoc/v0.3.0_RC/items/ps_id/{ps_id}/start/{start_date}/end/{end_date}": {
+        "/_ah/api/mydoc/v0.3.0_RC/hcp/search/filter/{data}": {
             "get": {
-                "description": "Returns all PS&#x27;s appointments in a range of dates",
+                "description": "Exposes an API endpoint to search a list of health care professional by filters",
                 "tags": [
-                    "items_ps_daterange"
+                    "hcp"
                 ],
-                "operationId": "GetItemsPsIdStartEndByPsIdAndStartDateAndEndDate_",
+                "operationId": "SearchHcpSearchFilterByData_",
                 "produces": [
                     "application/json"
                 ],
@@ -575,25 +915,9 @@
                         "x-is-map": false
                     },
                     {
-                        "name": "end_date",
+                        "name": "data",
                         "in": "path",
-                        "description": "Parameter end_date",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    },
-                    {
-                        "name": "ps_id",
-                        "in": "path",
-                        "description": "Parameter ps_id",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    },
-                    {
-                        "name": "start_date",
-                        "in": "path",
-                        "description": "Parameter start_date",
+                        "description": "Parameter data",
                         "required": true,
                         "type": "string",
                         "x-is-map": false
@@ -603,91 +927,19 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesAppCollectionMessage"
+                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpSearchPaginationResponse"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/patient/{patient_id}": {
-            "get": {
-                "description": "Returns the Patient&#x27;s basic data",
-                "tags": [
-                    "patient"
-                ],
-                "operationId": "GetPatientByPatientId_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "authorization",
-                        "in": "header",
-                        "description": "JWT token authorization",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    },
-                    {
-                        "name": "patient_id",
-                        "in": "path",
-                        "description": "Parameter patient_id",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/InOutMessagesPatientOutDataMessage"
-                        }
-                    }
-                }
-            },
-            "patch": {
-                "description": "Updates a Patient&#x27;s data . This method supports patch semantics.",
-                "tags": [
-                    "patient"
-                ],
-                "operationId": "PatchPatientByPatientId_",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "authorization",
-                        "in": "header",
-                        "description": "JWT token authorization",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    },
-                    {
-                        "name": "patient_id",
-                        "in": "path",
-                        "description": "Parameter patient_id",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/InOutMessagesPatientOutDataMessage"
-                        }
-                    }
-                }
-            },
+        "/_ah/api/mydoc/v0.3.0_RC/hcp/update/{hcp_id}": {
             "put": {
-                "description": "Updates a Patient&#x27;s data",
+                "description": "Exposes an API endpoint to update hcp",
                 "tags": [
-                    "patient"
+                    "hcp"
                 ],
-                "operationId": "UpdatePatientByPatientId_",
+                "operationId": "Update_hcpHcpUpdateByHcpId_",
                 "produces": [
                     "application/json"
                 ],
@@ -701,9 +953,9 @@
                         "x-is-map": false
                     },
                     {
-                        "name": "patient_id",
+                        "name": "hcp_id",
                         "in": "path",
-                        "description": "Parameter patient_id",
+                        "description": "Parameter hcp_id",
                         "required": true,
                         "type": "string",
                         "x-is-map": false
@@ -713,19 +965,57 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesPatientOutDataMessage"
+                            "$ref": "#/definitions/ApiMydocHcpMessagesHcpResponseMessage"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/patient/new": {
-            "post": {
-                "description": "Adds a new Patient",
+        "/_ah/api/mydoc/v0.3.0_RC/hcpassociation/state/{id}": {
+            "get": {
+                "description": "Exposes an API endpoint to obtain hcp associations by state",
                 "tags": [
-                    "patient"
+                    "hcpassociation"
                 ],
-                "operationId": "InsertPatientNew_",
+                "operationId": "GetHcpassociationStateById_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Parameter id",
+                        "required": true,
+                        "type": "integer",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocMydocMessagesHcpAssociationMessageCollection"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/hcptype/list": {
+            "get": {
+                "description": "Exposes an API endpoint to obtain hcp types",
+                "tags": [
+                    "hcptypes"
+                ],
+                "operationId": "ListHcptypeList_",
                 "produces": [
                     "application/json"
                 ],
@@ -743,19 +1033,19 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesPatientOutDataMessage"
+                            "$ref": "#/definitions/ApiMydocMydocMessagesHCPTypeMessageCollection"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/patient/{patient_id}/hciplan/{hciplan_id}/hciplan_nr/{hciplan_nr}": {
+        "/_ah/api/mydoc/v0.3.0_RC/patient/{patient_id}/add_hciplan/{hciplan_id}/hciplan_nr/{hciplan_nr}": {
             "post": {
                 "description": "Adds a HCI Plan to a Patient",
                 "tags": [
-                    "patient_plan"
+                    "patient"
                 ],
-                "operationId": "AddPatientHciplanHciplanNrByPatientIdAndHciplanIdAndHciplanNr_",
+                "operationId": "Add_hciplanPatientAddHciplanHciplanNrByPatientIdAndHciplanIdAndHciplanNr_",
                 "produces": [
                     "application/json"
                 ],
@@ -797,19 +1087,19 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesPatientOutDataMessage"
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/patient_plan/{hciplan_id}": {
-            "put": {
-                "description": "Updates a Patient&#x27;s HCI Plan",
+        "/_ah/api/mydoc/v0.3.0_RC/patient/{patient_id}/add_hcp_favorite/{hcp_id}": {
+            "post": {
+                "description": "Exposes an API endpoint to add a favorite hcp to a Patient",
                 "tags": [
-                    "patient_plan"
+                    "patient"
                 ],
-                "operationId": "UpdatePatientPlanByHciplanId_",
+                "operationId": "Add_hcp_favoritePatientAddHcpFavoriteByPatientIdAndHcpId_",
                 "produces": [
                     "application/json"
                 ],
@@ -823,9 +1113,17 @@
                         "x-is-map": false
                     },
                     {
-                        "name": "hciplan_id",
+                        "name": "hcp_id",
                         "in": "path",
-                        "description": "Parameter hciplan_id",
+                        "description": "Parameter hcp_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "description": "Parameter patient_id",
                         "required": true,
                         "type": "string",
                         "x-is-map": false
@@ -835,19 +1133,19 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesPatientHCIPlanMessage"
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/patient/{patient_id}/secondary": {
-            "post": {
-                "description": "Adds a secondary Patient to Primary",
+        "/_ah/api/mydoc/v0.3.0_RC/patient/{patient_id}": {
+            "get": {
+                "description": "Exposes an API endpoint to obtain by id a Patient",
                 "tags": [
-                    "patient_secondary"
+                    "patient"
                 ],
-                "operationId": "InsertPatientSecondaryByPatientId_",
+                "operationId": "GetPatientByPatientId_",
                 "produces": [
                     "application/json"
                 ],
@@ -873,19 +1171,19 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesPatientOutDataMessage"
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/ps/{ps_id}": {
-            "get": {
-                "description": "Returns a PS&#x27;s basic data",
+        "/_ah/api/mydoc/v0.3.0_RC/patient/new": {
+            "post": {
+                "description": "Exposes an API endpoint to add a new Patient",
                 "tags": [
-                    "ps"
+                    "patient"
                 ],
-                "operationId": "GetPsByPsId_",
+                "operationId": "InsertPatientNew_",
                 "produces": [
                     "application/json"
                 ],
@@ -894,14 +1192,6 @@
                         "name": "authorization",
                         "in": "header",
                         "description": "JWT token authorization",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    },
-                    {
-                        "name": "ps_id",
-                        "in": "path",
-                        "description": "Parameter ps_id",
                         "required": true,
                         "type": "string",
                         "x-is-map": false
@@ -911,19 +1201,49 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesPsDataMessage"
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/ps/{ps_id}/{date}": {
-            "get": {
-                "description": "Returns all appointmens and free slots for a PS on a particular date",
+        "/_ah/api/mydoc/v0.3.0_RC/patient/insert/secondary": {
+            "post": {
+                "description": "Exposes an API endpoint to add a secondary patient to a existing primary patient",
                 "tags": [
-                    "ps_items"
+                    "patient"
                 ],
-                "operationId": "GetPsByPsIdAndDate_",
+                "operationId": "Insert_secondaryPatientInsertSecondary_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/patient/{patient_primary_id}/link/{patient_secondary_id}": {
+            "post": {
+                "description": "Exposes an API endpoint to link an existing secondary patient to an existing primary patient",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "Link_secondaryPatientLinkByPatientPrimaryIdAndPatientSecondaryId_",
                 "produces": [
                     "application/json"
                 ],
@@ -937,17 +1257,17 @@
                         "x-is-map": false
                     },
                     {
-                        "name": "date",
+                        "name": "patient_primary_id",
                         "in": "path",
-                        "description": "Parameter date",
+                        "description": "Parameter patient_primary_id",
                         "required": true,
                         "type": "string",
                         "x-is-map": false
                     },
                     {
-                        "name": "ps_id",
+                        "name": "patient_secondary_id",
                         "in": "path",
-                        "description": "Parameter ps_id",
+                        "description": "Parameter patient_secondary_id",
                         "required": true,
                         "type": "string",
                         "x-is-map": false
@@ -955,21 +1275,125 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Workday Serial Data Structure",
+                        "description": "",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesWorkdayMessage"
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientCollection"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/reschedule/{cal_id}/{date}/{time}/{item_id}": {
+        "/_ah/api/mydoc/v0.3.0_RC/patient/list": {
+            "get": {
+                "description": "Exposes an API endpoint to obtain a list of Patients",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "ListPatientList_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientPaginationResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/patient/{patient_id}/hcpfavorites/list": {
+            "get": {
+                "description": "Exposes an API endpoint to obtain the list of hcp favorites for a patient",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "List_hcp_favoritesPatientHcpfavoritesListByPatientId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "description": "Parameter patient_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientHcpFavoritesCollection"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/patient/update/{patient_id}": {
+            "patch": {
+                "description": "Exposes an API endpoint to modify a Patient . This method supports patch semantics.",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "PatchPatientUpdateByPatientId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "description": "Parameter patient_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                        }
+                    }
+                }
+            },
             "put": {
-                "description": "Re-schedules an existing appointment to the specified calendar&#x27;s time slot",
+                "description": "Exposes an API endpoint to modify a Patient",
                 "tags": [
-                    "reschedule"
+                    "patient"
                 ],
-                "operationId": "PutRescheduleByCalIdAndDateAndTimeAndItemId_",
+                "operationId": "UpdatePatientUpdateByPatientId_",
                 "produces": [
                     "application/json"
                 ],
@@ -983,33 +1407,9 @@
                         "x-is-map": false
                     },
                     {
-                        "name": "cal_id",
+                        "name": "patient_id",
                         "in": "path",
-                        "description": "Parameter cal_id",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    },
-                    {
-                        "name": "date",
-                        "in": "path",
-                        "description": "Parameter date",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    },
-                    {
-                        "name": "item_id",
-                        "in": "path",
-                        "description": "Parameter item_id",
-                        "required": true,
-                        "type": "string",
-                        "x-is-map": false
-                    },
-                    {
-                        "name": "time",
-                        "in": "path",
-                        "description": "Parameter time",
+                        "description": "Parameter patient_id",
                         "required": true,
                         "type": "string",
                         "x-is-map": false
@@ -1017,21 +1417,197 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Item Serial Data Structure",
+                        "description": "",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesItemMessage"
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
                         }
                     }
                 }
             }
         },
-        "/_ah/api/mydoc/v0.3.0_RC/agenda/{cal_id}/{date}": {
+        "/_ah/api/mydoc/v0.3.0_RC/patient/{patient_id}/rm_hcp_favorite/{hcp_id}": {
+            "delete": {
+                "description": "Exposes an API endpoint to remove a favorite hcp from a Patient",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "Rm_hcp_favoritePatientRmHcpFavoriteByPatientIdAndHcpId_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "hcp_id",
+                        "in": "path",
+                        "description": "Parameter hcp_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "description": "Parameter patient_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/patient/{patient_id}/update_hciplan/{hciplan_id}/hciplan_nr/{hciplan_nr}": {
+            "put": {
+                "description": "Update a HCI Plan of a Patient",
+                "tags": [
+                    "patient"
+                ],
+                "operationId": "Update_hciplanPatientUpdateHciplanHciplanNrByPatientIdAndHciplanIdAndHciplanNr_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "hciplan_id",
+                        "in": "path",
+                        "description": "Parameter hciplan_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "hciplan_nr",
+                        "in": "path",
+                        "description": "Parameter hciplan_nr",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "description": "Parameter patient_id",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/specialty/type/{id}": {
             "get": {
-                "description": "Returns a calendar&#x27;s workday for this date",
+                "description": "Exposes an API endpoint to obtain specialties by types",
+                "tags": [
+                    "specialty"
+                ],
+                "operationId": "GetSpecialtyTypeById_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Parameter id",
+                        "required": true,
+                        "type": "integer",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocMydocMessagesHcpSpecialtyMessageCollection"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/states/country/{id}": {
+            "get": {
+                "description": "Exposes an API endpoint to obtain states",
+                "tags": [
+                    "states"
+                ],
+                "operationId": "GetStatesCountryById_",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "description": "JWT token authorization",
+                        "required": true,
+                        "type": "string",
+                        "x-is-map": false
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Parameter id",
+                        "required": true,
+                        "type": "integer",
+                        "x-is-map": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/ApiMydocMydocMessagesStateResponseCollection"
+                        }
+                    }
+                }
+            }
+        },
+        "/_ah/api/mydoc/v0.3.0_RC/schedule/{cal_id}/{date}": {
+            "get": {
+                "description": "Returns the calendar&#x27;s workday schedule for this date",
                 "tags": [
                     "workday"
                 ],
-                "operationId": "GetAgendaByCalIdAndDate_",
+                "operationId": "GetScheduleByCalIdAndDate_",
                 "produces": [
                     "application/json"
                 ],
@@ -1065,7 +1641,7 @@
                     "200": {
                         "description": "Workday Serial Data Structure",
                         "schema": {
-                            "$ref": "#/definitions/InOutMessagesWorkdayMessage"
+                            "$ref": "#/definitions/ApiMydocCalendarMessagesWorkdayMessage"
                         }
                     }
                 }
@@ -1098,78 +1674,133 @@
                 }
             }
         },
-        "InOutMessagesAppCollectionMessage": {
+        "ApiMydocCalendarMessagesAppointmentMessage": {
             "type": "object",
+            "description": "Appointment",
             "properties": {
-                "appointments": {
-                    "description": "Appointment url",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/InOutMessagesAppointmentMessage"
-                    }
-                }
-            }
-        },
-        "InOutMessagesAppointmentMessage": {
-            "description": "Appointment url",
-            "type": "object",
-            "properties": {
-                "date": {
-                    "type": "string"
+                "appointment_id": {
+                    "type": "string",
+                    "format": "int64"
                 },
-                "la_name": {
-                    "type": "string"
-                },
-                "link": {
-                    "type": "string"
-                },
-                "time": {
-                    "type": "string"
-                }
-            }
-        },
-        "InOutMessagesCalDataMessage": {
-            "description": "Calendar Serial Data Structure",
-            "type": "object",
-            "properties": {
                 "cal_id": {
                     "type": "string",
                     "format": "int64"
                 },
-                "la_address": {
+                "comments": {
                     "type": "string"
                 },
-                "la_id": {
+                "date": {
+                    "type": "string"
+                },
+                "document_type": {
+                    "type": "string"
+                },
+                "duration": {
                     "type": "string",
                     "format": "int64"
                 },
-                "la_name": {
+                "hc_loc_name": {
                     "type": "string"
                 },
-                "ps_id": {
+                "hci_plan": {
+                    "type": "string"
+                },
+                "hci_plan_nr": {
+                    "type": "string"
+                },
+                "hci_plan_sec_code": {
+                    "type": "string"
+                },
+                "hci_plan_valid_until": {
+                    "type": "string"
+                },
+                "hcp_name": {
+                    "type": "string"
+                },
+                "history": {
+                    "type": "string"
+                },
+                "id_doc_number": {
+                    "type": "string"
+                },
+                "patient_id": {
                     "type": "string",
                     "format": "int64"
                 },
-                "ps_name": {
+                "patient_name": {
                     "type": "string"
                 },
-                "ps_specialty": {
+                "practice": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "string"
+                },
+                "status": {
                     "type": "string"
                 }
             }
         },
-        "InOutMessagesDayScheduleMessage": {
-            "description": "Calendar Weekly Schedule",
+        "ApiMydocCalendarMessagesCalDataMessage": {
             "type": "object",
+            "description": "Calendar Serial Data Structure",
+            "properties": {
+                "address_line_1": {
+                    "type": "string"
+                },
+                "address_line_2": {
+                    "type": "string"
+                },
+                "calendar_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "hc_location_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "hc_location_name": {
+                    "type": "string"
+                },
+                "hcp_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "hcp_name": {
+                    "type": "string"
+                },
+                "hcp_specialty": {
+                    "type": "string"
+                },
+                "location_private": {
+                    "type": "boolean"
+                },
+                "postcode": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocCalendarMessagesDayScheduleMessage": {
+            "type": "object",
+            "description": "Calendar Weekly Schedule",
             "properties": {
                 "day_of_week": {
                     "type": "string"
                 },
                 "timeslots": {
-                    "description": "Dayly Schedule - hh:mm:ss - minutes",
                     "type": "array",
+                    "description": "Dayly Schedule - hh:mm:ss - minutes",
                     "items": {
-                        "$ref": "#/definitions/InOutMessagesTimeslotMessage"
+                        "$ref": "#/definitions/ApiMydocCalendarMessagesTimeslotMessage"
                     }
                 },
                 "weekday": {
@@ -1178,293 +1809,167 @@
                 }
             }
         },
-        "InOutMessagesFreeDateMessage": {
-            "description": "Free Items of a certain date",
+        "ApiMydocCalendarMessagesExcptDateScheduleMessage": {
             "type": "object",
+            "description": "Calendar Exception Date Schedule",
             "properties": {
-                "date": {
+                "excpt_date": {
                     "type": "string"
                 },
-                "free_list": {
-                    "description": "Free Item Link",
+                "timeslots": {
                     "type": "array",
+                    "description": "Dayly Schedule - hh:mm:ss - minutes",
                     "items": {
-                        "$ref": "#/definitions/InOutMessagesFreeItemLinkMessage"
+                        "$ref": "#/definitions/ApiMydocCalendarMessagesTimeslotMessage"
                     }
                 }
             }
         },
-        "InOutMessagesFreeItemLinkMessage": {
-            "description": "Free Item Link",
+        "ApiMydocCalendarMessagesHcLocationMessage": {
             "type": "object",
             "properties": {
-                "link": {
+                "address_line_1": {
                     "type": "string"
                 },
-                "time": {
+                "address_line_2": {
                     "type": "string"
-                }
-            }
-        },
-        "InOutMessagesFreeItemsMessage": {
-            "description": "Free items in a range of dates",
-            "type": "object",
-            "properties": {
-                "free": {
-                    "description": "Free Items of a certain date",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/InOutMessagesFreeDateMessage"
-                    }
-                }
-            }
-        },
-        "InOutMessagesHCIPlanMessage": {
-            "type": "object",
-            "properties": {
-                "Id": {
+                },
+                "city_id": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "hc_corp_id": {
+                    "type": "string"
+                },
+                "hc_location_id": {
                     "type": "string",
                     "format": "int64"
                 },
-                "Name": {
+                "name": {
                     "type": "string"
                 },
-                "Number": {
+                "postcode": {
                     "type": "string"
                 }
             }
         },
-        "InOutMessagesItemMessage": {
-            "description": "Item Serial Data Structure",
+        "ApiMydocCalendarMessagesItemMessage": {
             "type": "object",
+            "description": "Item Serial Data Structure",
             "properties": {
                 "cal_id": {
                     "type": "string",
                     "format": "int64"
                 },
+                "comments": {
+                    "type": "string"
+                },
                 "date": {
                     "type": "string"
                 },
-                "desc": {
-                    "type": "string"
-                },
-                "etc": {
-                    "type": "string"
+                "duration": {
+                    "type": "string",
+                    "format": "int64"
                 },
                 "freebusy": {
+                    "type": "string"
+                },
+                "hc_loc_name": {
+                    "type": "string"
+                },
+                "hci_plan_name": {
+                    "type": "string"
+                },
+                "hci_plan_nr": {
+                    "type": "string"
+                },
+                "hcp_name": {
+                    "type": "string"
+                },
+                "id_doc_nr": {
+                    "type": "string"
+                },
+                "id_doc_type": {
                     "type": "string"
                 },
                 "item_id": {
                     "type": "string",
                     "format": "int64"
                 },
-                "la_id": {
-                    "type": "string",
-                    "format": "int64"
-                },
-                "la_name": {
+                "patient_id": {
                     "type": "string"
                 },
-                "name": {
+                "patient_name": {
                     "type": "string"
                 },
-                "ps_id": {
-                    "type": "string",
-                    "format": "int64"
-                },
-                "ps_name": {
+                "practice": {
                     "type": "string"
                 },
-                "ps_specialty": {
+                "start": {
                     "type": "string"
                 },
                 "status": {
                     "type": "string"
-                },
-                "time": {
-                    "type": "string"
                 }
             }
         },
-        "InOutMessagesPatientHCIPlanMessage": {
+        "ApiMydocCalendarMessagesNewAppMessage": {
             "type": "object",
-            "properties": {
-                "Id": {
-                    "type": "string",
-                    "format": "int64"
-                },
-                "Number": {
-                    "type": "string"
-                },
-                "Patient_id": {
-                    "type": "string",
-                    "format": "int64"
-                },
-                "Plan_id": {
-                    "type": "string",
-                    "format": "int64"
-                },
-                "Security_Code": {
-                    "type": "string"
-                },
-                "Valid_Until": {
-                    "type": "string"
-                }
-            }
-        },
-        "InOutMessagesPatientInDataMessage": {
-            "type": "object",
-            "properties": {
-                "Address": {
-                    "type": "string"
-                },
-                "BirthDate": {
-                    "type": "string"
-                },
-                "Email": {
-                    "type": "string"
-                },
-                "Etc": {
-                    "type": "string"
-                },
-                "Gender": {
-                    "type": "string"
-                },
-                "HCI_Plan_Sec_Code": {
-                    "type": "string",
-                    "format": "int64"
-                },
-                "HCI_Plan_Valid_Until": {
-                    "type": "string"
-                },
-                "HCI_Plan_id": {
-                    "type": "string",
-                    "format": "int64"
-                },
-                "HCI_Plan_nr": {
-                    "type": "string"
-                },
-                "Id_doc_Nr": {
-                    "type": "string",
-                    "format": "int64"
-                },
-                "Id_doc_Type": {
-                    "type": "string"
-                },
-                "Name": {
-                    "type": "string"
-                },
-                "Notif_Channel": {
-                    "type": "string"
-                },
-                "Phone_Landline_Nr": {
-                    "type": "string",
-                    "format": "int64"
-                },
-                "Phone_Mobile_Nr": {
-                    "type": "string",
-                    "format": "int64"
-                }
-            }
-        },
-        "InOutMessagesPatientOutDataMessage": {
-            "type": "object",
-            "properties": {
-                "Address": {
-                    "type": "string"
-                },
-                "BirthDate": {
-                    "type": "string"
-                },
-                "Email": {
-                    "type": "string"
-                },
-                "Etc": {
-                    "type": "string"
-                },
-                "Gender": {
-                    "type": "string"
-                },
-                "HCI_Plans": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/InOutMessagesHCIPlanMessage"
-                    }
-                },
-                "Id_doc_Nr": {
-                    "type": "string",
-                    "format": "int64"
-                },
-                "Id_doc_Type": {
-                    "type": "string"
-                },
-                "Name": {
-                    "type": "string"
-                },
-                "Notif_Channel": {
-                    "type": "string"
-                },
-                "Patient_id": {
-                    "type": "string",
-                    "format": "int64"
-                },
-                "Phone_Landline_Nr": {
-                    "type": "string",
-                    "format": "int64"
-                },
-                "Phone_Mobile_Nr": {
-                    "type": "string",
-                    "format": "int64"
-                },
-                "Primary_id": {
-                    "type": "string",
-                    "format": "int64"
-                },
-                "SecondaryPatients": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/InOutMessagesSecondaryPatientMessage"
-                    }
-                },
-                "Status": {
-                    "type": "string"
-                },
-                "Type": {
-                    "type": "string"
-                }
-            }
-        },
-        "InOutMessagesPsCalMessage": {
-            "type": "object",
+            "description": "New Appointment",
             "properties": {
                 "cal_id": {
                     "type": "string",
                     "format": "int64"
-                }
-            }
-        },
-        "InOutMessagesPsDataMessage": {
-            "type": "object",
-            "properties": {
-                "ps_cals": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/InOutMessagesPsCalMessage"
-                    }
                 },
-                "ps_id": {
+                "comments": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "duration": {
                     "type": "string",
                     "format": "int64"
                 },
-                "ps_name": {
+                "first_name": {
                     "type": "string"
                 },
-                "ps_specialty": {
+                "hci_plan_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "hci_plan_nr": {
+                    "type": "string"
+                },
+                "hci_plan_sec_code": {
+                    "type": "string"
+                },
+                "hci_plan_valid_until": {
+                    "type": "string"
+                },
+                "id_doc_nr": {
+                    "type": "string"
+                },
+                "id_doc_type": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "patient_id": {
+                    "type": "string"
+                },
+                "practice": {
+                    "type": "string"
+                },
+                "start": {
                     "type": "string"
                 }
             }
         },
-        "InOutMessagesRequestBody": {
+        "ApiMydocCalendarMessagesResponseBody": {
             "type": "object",
             "properties": {
                 "message": {
@@ -1472,21 +1977,9 @@
                 }
             }
         },
-        "InOutMessagesSecondaryPatientMessage": {
+        "ApiMydocCalendarMessagesTimeslotMessage": {
             "type": "object",
-            "properties": {
-                "Id": {
-                    "type": "string",
-                    "format": "int64"
-                },
-                "Name": {
-                    "type": "string"
-                }
-            }
-        },
-        "InOutMessagesTimeslotMessage": {
             "description": "Dayly Schedule - hh:mm:ss - minutes",
-            "type": "object",
             "properties": {
                 "start": {
                     "type": "string"
@@ -1497,23 +1990,24 @@
                 }
             }
         },
-        "InOutMessagesWeekScheduleMessage": {
+        "ApiMydocCalendarMessagesWeekScheduleMessage": {
             "type": "object",
             "properties": {
                 "workdays": {
-                    "description": "Calendar Weekly Schedule",
                     "type": "array",
+                    "description": "Calendar Weekly Schedule",
                     "items": {
-                        "$ref": "#/definitions/InOutMessagesDayScheduleMessage"
+                        "$ref": "#/definitions/ApiMydocCalendarMessagesDayScheduleMessage"
                     }
                 }
             }
         },
-        "InOutMessagesWorkdayEntry": {
-            "description": "Workday Entry &#x3D; time + item",
+        "ApiMydocCalendarMessagesWorkdayEntry": {
             "type": "object",
+            "description": "Workday Entry &#x3D; time + item",
             "properties": {
                 "item": {
+                    "$ref": "#/definitions/ApiMydocCalendarMessagesItemMessage",
                     "description": "Item Serial Data Structure"
                 },
                 "time": {
@@ -1521,16 +2015,824 @@
                 }
             }
         },
-        "InOutMessagesWorkdayMessage": {
-            "description": "Workday Serial Data Structure",
+        "ApiMydocCalendarMessagesWorkdayMessage": {
             "type": "object",
+            "description": "Workday Serial Data Structure",
             "properties": {
                 "entries": {
+                    "type": "array",
                     "description": "Workday Entry &#x3D; time + item",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocCalendarMessagesWorkdayEntry"
+                    }
+                }
+            }
+        },
+        "ApiMydocHcpMessagesHcpPaginationResponse": {
+            "type": "object",
+            "properties": {
+                "extra": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesPaginatorDataResponse"
+                },
+                "professionals": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/InOutMessagesWorkdayEntry"
+                        "$ref": "#/definitions/ApiMydocHcpMessagesHcpResponseMessage"
                     }
+                }
+            }
+        },
+        "ApiMydocHcpMessagesHcpRequestMessage": {
+            "type": "object",
+            "properties": {
+                "address_line_1": {
+                    "type": "string"
+                },
+                "address_line_2": {
+                    "type": "string"
+                },
+                "association_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "birthdate": {
+                    "type": "string"
+                },
+                "city_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "document_type_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "hcp_specialty": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesHcpSpecialtyRequestMessage"
+                    }
+                },
+                "home_page": {
+                    "type": "string"
+                },
+                "id_doc_number": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "license_nr": {
+                    "type": "string"
+                },
+                "linkedin_profile": {
+                    "type": "string"
+                },
+                "postcode": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocHcpMessagesHcpResponseMessage": {
+            "type": "object",
+            "properties": {
+                "address_line_1": {
+                    "type": "string"
+                },
+                "address_line_2": {
+                    "type": "string"
+                },
+                "association": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesHcpAssociationResponseMessage"
+                },
+                "birthdate": {
+                    "type": "string"
+                },
+                "city": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesCityResponseMessage"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "hcp_specialty": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesHcpSpecialtyResponseMessage"
+                    }
+                },
+                "home_page": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "id_doc_number": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "license_nr": {
+                    "type": "string"
+                },
+                "linkedin_profile": {
+                    "type": "string"
+                },
+                "postcode": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocHcpMessagesHcpSearchPaginationResponse": {
+            "type": "object",
+            "properties": {
+                "extra": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesPaginatorDataResponse"
+                },
+                "professionals": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocHcpMessagesHcpSearchResponseMessage"
+                    }
+                }
+            }
+        },
+        "ApiMydocHcpMessagesHcpSearchResponseMessage": {
+            "type": "object",
+            "properties": {
+                "address_line_1": {
+                    "type": "string"
+                },
+                "address_line_2": {
+                    "type": "string"
+                },
+                "association": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesHcpAssociationResponseMessage"
+                },
+                "birthdate": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "hci_plans": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesHCIPlanResponseMessage"
+                    }
+                },
+                "hcp_specialty": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesHcpSpecialtyResponseMessage"
+                    }
+                },
+                "home_page": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "id_doc_number": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "license_nr": {
+                    "type": "string"
+                },
+                "linkedin_profile": {
+                    "type": "string"
+                },
+                "postcode": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocHcpMessagesHcpUpdateRequestMessage": {
+            "type": "object",
+            "properties": {
+                "address_line_1": {
+                    "type": "string"
+                },
+                "address_line_2": {
+                    "type": "string"
+                },
+                "association_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "birthdate": {
+                    "type": "string"
+                },
+                "city_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "document_type_id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "hcp_specialty": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesHcpSpecialtyRequestMessage"
+                    }
+                },
+                "home_page": {
+                    "type": "string"
+                },
+                "id_doc_number": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "license_nr": {
+                    "type": "string"
+                },
+                "linkedin_profile": {
+                    "type": "string"
+                },
+                "postcode": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesCityResponseCollection": {
+            "type": "object",
+            "properties": {
+                "cities": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesCityResponseMessage"
+                    }
+                }
+            }
+        },
+        "ApiMydocMydocMessagesCityResponseMessage": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "state": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesStateResponseMessage"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesCountryResponseCollection": {
+            "type": "object",
+            "properties": {
+                "countries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesCountryResponseMessage"
+                    }
+                }
+            }
+        },
+        "ApiMydocMydocMessagesCountryResponseMessage": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "international_code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesDocumentTypeMessageCollection": {
+            "type": "object",
+            "properties": {
+                "document_types": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesDocumentTypeResponseMessage"
+                    }
+                }
+            }
+        },
+        "ApiMydocMydocMessagesDocumentTypeResponseMessage": {
+            "type": "object",
+            "properties": {
+                "abbreviation": {
+                    "type": "string"
+                },
+                "country": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesCountryResponseMessage"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesHCIPlanMessageCollection": {
+            "type": "object",
+            "properties": {
+                "hciplans": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesHCIPlanResponseMessage"
+                    }
+                }
+            }
+        },
+        "ApiMydocMydocMessagesHCIPlanResponseMessage": {
+            "type": "object",
+            "properties": {
+                "hciprovider": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesHCIProviderResponseCollection": {
+            "type": "object",
+            "properties": {
+                "hciproviders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesHCIProviderResponseMessage"
+                    }
+                }
+            }
+        },
+        "ApiMydocMydocMessagesHCIProviderResponseMessage": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesHCPTypeMessageCollection": {
+            "type": "object",
+            "properties": {
+                "hcp_types": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesHcpTypeResponseMessage"
+                    }
+                }
+            }
+        },
+        "ApiMydocMydocMessagesHcLocationCollection": {
+            "type": "object",
+            "properties": {
+                "hc_locations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesHcLocationResponseMessage"
+                    }
+                }
+            }
+        },
+        "ApiMydocMydocMessagesHcLocationResponseMessage": {
+            "type": "object",
+            "properties": {
+                "address_line_1": {
+                    "type": "string"
+                },
+                "address_line_2": {
+                    "type": "string"
+                },
+                "city": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesCityResponseMessage"
+                },
+                "cuit": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "hc_corp_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "legal_name": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "postcode": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesHcpAssociationMessageCollection": {
+            "type": "object",
+            "properties": {
+                "hcp_associations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesHcpAssociationResponseMessage"
+                    }
+                }
+            }
+        },
+        "ApiMydocMydocMessagesHcpAssociationResponseMessage": {
+            "type": "object",
+            "properties": {
+                "hcp_type": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesHcpTypeResponseMessage"
+                },
+                "id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "state": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesStateResponseMessage"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesHcpSpecialtyMessageCollection": {
+            "type": "object",
+            "properties": {
+                "specialties": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesHcpSpecialtyResponseMessage"
+                    }
+                }
+            }
+        },
+        "ApiMydocMydocMessagesHcpSpecialtyRequestMessage": {
+            "type": "object",
+            "properties": {
+                "hcp_specialty_id": {
+                    "type": "string",
+                    "format": "int64"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesHcpSpecialtyResponseMessage": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesHcpTypeResponseMessage": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesPaginatorDataResponse": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "current_page": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "next": {
+                    "type": "string"
+                },
+                "previous": {
+                    "type": "string"
+                },
+                "total_page": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesStateResponseCollection": {
+            "type": "object",
+            "properties": {
+                "states": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocMydocMessagesStateResponseMessage"
+                    }
+                }
+            }
+        },
+        "ApiMydocMydocMessagesStateResponseMessage": {
+            "type": "object",
+            "properties": {
+                "abbreviation": {
+                    "type": "string"
+                },
+                "country": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesCountryResponseMessage"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocMydocMessagesUserInfo": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "is_superuser": {
+                    "type": "boolean"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientCollection": {
+            "type": "object",
+            "properties": {
+                "patients": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                    }
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientHCIPlanRequest": {
+            "type": "object",
+            "properties": {
+                "security_code": {
+                    "type": "string"
+                },
+                "valid_until": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientHCIPlanResponse": {
+            "type": "object",
+            "properties": {
+                "number": {
+                    "type": "string"
+                },
+                "plan": {
+                    "type": "string"
+                },
+                "provider": {
+                    "type": "string"
+                },
+                "security_code": {
+                    "type": "string"
+                },
+                "valid_until": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientHcpFavoriteResponse": {
+            "type": "object",
+            "properties": {
+                "first_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "last_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientHcpFavoritesCollection": {
+            "type": "object",
+            "properties": {
+                "hcp_favorites": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientHcpFavoriteResponse"
+                    }
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientMessage": {
+            "type": "object",
+            "properties": {
+                "first_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "format": "int64"
+                },
+                "last_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientPaginationResponse": {
+            "type": "object",
+            "properties": {
+                "extra": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesPaginatorDataResponse"
+                },
+                "patients": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientResponseMessage"
+                    }
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientRequestMessage": {
+            "type": "object",
+            "properties": {
+                "address_line_1": {
+                    "type": "string"
+                },
+                "address_line_2": {
+                    "type": "string"
+                },
+                "birthdate": {
+                    "type": "string"
+                },
+                "city_id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "document_type_id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "id_doc_number": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "postcode": {
+                    "type": "string"
+                }
+            }
+        },
+        "ApiMydocPatientMessagesPatientResponseMessage": {
+            "type": "object",
+            "properties": {
+                "address_line_1": {
+                    "type": "string"
+                },
+                "address_line_2": {
+                    "type": "string"
+                },
+                "birthdate": {
+                    "type": "string"
+                },
+                "city": {
+                    "$ref": "#/definitions/ApiMydocMydocMessagesCityResponseMessage"
+                },
+                "document_type": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "hci_plans": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientHCIPlanResponse"
+                    }
+                },
+                "hcp_favorites": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientHcpFavoriteResponse"
+                    }
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "id_doc_number": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "primary_patients": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientMessage"
+                    }
+                },
+                "secondary_patients": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApiMydocPatientMessagesPatientMessage"
+                    }
+                },
+                "type_primary": {
+                    "type": "boolean"
                 }
             }
         }
